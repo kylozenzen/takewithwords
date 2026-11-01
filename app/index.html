@@ -473,6 +473,28 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
 .set-tools { display: flex; flex-wrap: wrap; gap: 8px; }
 .restore-btn { cursor: pointer; }
 .settings-theme button[aria-pressed="true"] span { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.today-head { grid-column:1 / -1; }
+.start-section { grid-column: 1 / -1; display: grid; gap: 14px; }
+.start-section h2, .develop-page h1, .opinions-page h1 { font-size: clamp(32px, 4vw, 48px); line-height: 1; }
+.start-choices { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+.start-choices .card { display:flex; flex-direction:column; gap:12px; }
+.start-choices h3, .start-choices p { margin:0; }
+.start-choices h3 { font-size:23px; line-height:1.2; }
+.start-choices p { color:var(--ink2); flex:1; }
+.start-choices .btn { white-space:normal; }
+.development-notes { border:1px solid var(--hair); padding:14px; margin:12px 0 24px; background:var(--sunk); }
+.development-notes summary { cursor:pointer; font-weight:700; }
+.development-notes p { white-space:pre-wrap; overflow-wrap:anywhere; font-size:14px; }
+.develop-page { max-width:850px; }
+.opinions-page .ref-list { padding:0; list-style:none; display:grid; gap:16px; }
+.opinions-page .ref-list li { background:var(--surface); padding:20px; border:2px solid var(--line); display:flex; align-items:start; gap:16px; overflow-wrap:anywhere; }
+.opinions-page .ref-list .grow { min-width:0; }
+.opinions-page .ref-note { white-space:pre-wrap; }
+.opinions-page .ref-list b { font-size:21px; display:block; }
+.opinions-page header p { max-width:650px; }
+.opinions-page #creatorSearch { min-height:46px; width:100%; }
+@media(max-width:800px) { .start-choices { grid-template-columns:1fr; } .opinions-page .ref-list li { flex-wrap:wrap; } .opinions-page .ref-list .grow { flex-basis:100%; } }
 </style>
 </head>
 <body data-theme="clinic" data-font="sans">
@@ -487,7 +509,7 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
       <button type="button" data-view="today"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="8" rx="4"></rect><path d="M12 8v8"></path></svg><span class="nav-label">Today</span></button>
       <button type="button" data-view="write"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg><span class="nav-label">Write</span></button>
       <button type="button" data-view="spark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"></path></svg><span class="nav-label">Prompts</span></button>
-      <button type="button" data-act="references" title="Second Opinions" aria-label="Second Opinions"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 19v-4a4 4 0 0 1 4-4h12"/><path d="m16 7 4 4-4 4"/><path d="M4 6h9"/></svg><span class="nav-label">Second Opinions</span></button>
+      <button type="button" data-view="opinions" title="Second Opinions" aria-label="Second Opinions"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 19v-4a4 4 0 0 1 4-4h12"/><path d="m16 7 4 4-4 4"/><path d="M4 6h9"/></svg><span class="nav-label">Second Opinions</span></button>
       <button type="button" data-view="drafts"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"></path><path d="M8 9h8M8 13h8M8 17h5"></path></svg><span class="nav-label">Drafts</span><span class="count" id="draftCount"></span></button>
     </nav>
     <div class="side-section"><span class="label">Recent drafts</span></div>
@@ -694,7 +716,7 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
       var late = d.scheduledFor && new Date(d.scheduledFor) < new Date();
       return '<span class="chip queued">' + (late ? 'Scheduled (check Buffer)' : 'Scheduled') + demo + '</span>';
     }
-    if (d.status === 'idea') return '<span class="chip idea">In Buffer Ideas' + demo + '</span>';
+    if (d.status === 'idea') return '<span class="chip idea">Buffer channel draft' + demo + '</span>';
     return '<span class="chip">Saved on this device</span>';
   }
   function toast(msg, undo) {
@@ -825,6 +847,44 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
       '<p class="empty" style="color: var(--ink2);">That\'s your first draft. When you want it to actually post, Buffer is the free tool that sends it \u2014 and it walks you through the channels and character limits. You don\'t need it to keep writing.</p>' +
       '<div class="row-btns"><button type="button" class="link-btn" data-act="nudge-dismiss">Not yet</button><button type="button" class="btn btn-rx" data-act="connect">Set up Buffer</button></div></section>';
   }
+  function startChoices() {
+    return '<section class="start-section" aria-labelledby="startH"><span class="label">Your next page</span><h2 id="startH" class="display">Where would you like to start?</h2><p class="empty">A clear idea, a loose thought, or absolutely nothing yet. All welcome.</p><div class="start-choices">' +
+      '<article class="card"><span class="label">01 / A blank page</span><h3>Just write</h3><p>Open a blank page and see where it takes you.</p><button class="btn" data-act="blank">Start writing</button></article>' +
+      '<article class="card"><span class="label">02 / A little direction</span><h3>Work through an idea</h3><p>A few guided questions can help you find the point and shape it into a post.</p><button class="btn btn-rx" data-act="develop-new">Explore my idea</button></article>' +
+      '<article class="card"><span class="label">03 / Something to get you going</span><h3>Find a spark</h3><p>Browse prompts about your work, experiences, and things you have learned.</p><button class="btn" data-act="go-spark">Browse prompts</button></article></div></section>';
+  }
+  var DEVELOP_QUESTIONS = [
+    { key: 'coreThought', title: 'What is on your mind?', hint: 'An observation, a small win, something you learned. Messy is fine.' },
+    { key: 'tension', title: 'What made you notice it?', hint: 'What surprised you? What happened differently from what you expected?' },
+    { key: 'proof', title: 'Can you make it real?', hint: 'Recall a moment, example, result, or experience that supports the thought.' },
+    { key: 'audience', title: 'Who might this help?', hint: 'Think of one person. What would you want them to take away?' }
+  ];
+  var DEVELOP_ANGLES = [
+    { id: 'story', label: 'Tell the story', hint: 'Start with the moment. Show what happened and what it changed.' },
+    { id: 'lesson', label: 'Share the lesson', hint: 'Explain what you learned and what someone else could try.' },
+    { id: 'opinion', label: 'Say what you think', hint: 'Make your point and support it with a real example.' },
+    { id: 'question', label: 'Open a conversation', hint: 'Share the observation and ask how others see it.' }
+  ];
+  function beginDevelopment(fresh) {
+    if (fresh || !active()) newDraft(null);
+    var d = active();
+    if (!d.development) d.development = { coreThought: d.body || '', tension: '', proof: '', audience: '', angle: '', step: 0 };
+    S.view = 'develop'; save(true); renderAll();
+  }
+  function viewDevelop() {
+    var d = active(); if (!d) return startChoices();
+    var dev = d.development || (d.development = { step: 0 });
+    var step = Math.max(0, Math.min(4, dev.step || 0)), q = DEVELOP_QUESTIONS[step];
+    var content = q ? '<label class="q2" for="developmentAnswer">' + esc(q.title) + '</label><p class="empty">' + esc(q.hint) + '</p><textarea id="developmentAnswer" data-development="' + q.key + '" placeholder="Your words go here…">' + esc(dev[q.key] || '') + '</textarea>' :
+      '<h2>How would you like to tell it?</h2><p class="empty">Pick a starting angle. You can change your mind.</p><div class="angles">' + DEVELOP_ANGLES.map(function(a) { return '<button class="kind" data-act="develop-angle" data-id="' + a.id + '" aria-pressed="' + (dev.angle === a.id) + '"><b>' + a.label + '</b><span>' + a.hint + '</span></button>'; }).join('') + '</div>';
+    return '<div class="spark develop-page"><button class="link-btn" data-act="go-today">← Back to Today</button><header><span class="label">Work through an idea / ' + (step + 1) + ' of 5</span><h1 class="display">Find your point.</h1><p>One question at a time. Skip anything that does not help.</p></header><section class="journey">' + content +
+      '<div class="row-btns"><button class="btn" data-act="develop-back"' + (step === 0 ? ' disabled' : '') + '>Back</button>' + (step < 4 ? '<button class="link-btn" data-act="develop-next">Skip for now</button><button class="btn btn-rx" data-act="develop-next">Next</button>' : '<button class="btn btn-rx" data-act="develop-write">Start my draft</button>') + '</div><p class="empty">Saved on this device. These notes stay separate from your post.</p></section><button class="link-btn" data-act="develop-write">I am ready to write</button></div>';
+  }
+  function developmentReference(d) {
+    if (!d.development) return '';
+    var dev=d.development, angle=DEVELOP_ANGLES.filter(function(a){return a.id===dev.angle;})[0];
+    return '<details class="development-notes"><summary>Your starting thoughts' + (angle ? ' · ' + esc(angle.label) : '') + '</summary>' + DEVELOP_QUESTIONS.map(function(q){return dev[q.key] ? '<p><b>' + esc(q.title) + '</b><br>' + esc(dev[q.key]) + '</p>' : '';}).join('') + '<button class="link-btn" data-act="develop-existing">Revisit my idea</button></details>';
+  }
   function viewToday() {
     var recent = S.drafts.slice(0, 4);
     var recentHtml = recent.length
@@ -838,7 +898,7 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
       '<button type="button" class="btn btn-sm" data-act="connect" style="align-self: flex-start;">Learn about Buffer</button></section>';
     return '<div class="today">' +
       '<div class="today-head"><div style="display: flex; flex-direction: column; gap: 8px;"><span class="label" style="color: var(--accent);">' + ((S.onboarded && S.drafts.length) ? 'Welcome back' : 'Take With Words') + '</span><h1 class="display" style="font-size: 50px;">' + ((S.onboarded && S.drafts.length) ? 'Good to see you.' : 'Today') + '</h1><p class="empty" style="color: var(--ink2); font-size: 15px; max-width: 32rem;">No streak to keep, nothing due. Write a little when you feel like it.</p></div></div>' +
-      '<section class="journey" aria-labelledby="jH">' + journeyCard() + '</section>' +
+      startChoices() + (S.journey ? '<details class="journey" open><summary>Continue your earlier guided start</summary>' + journeyCard() + '</details>' : '') +
       '<div class="stack">' + wordsCard() + postNudge() + progressCard() +
         '<section class="card"><h2 class="card-h">Recent drafts</h2>' + recentHtml + '</section>' + buffer +
       '</div></div>';
@@ -897,7 +957,7 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
       strip = '<div class="prompt-strip"><span class="label" style="color: var(--accent); padding-top: 2px;">Prompt</span><span class="q">' + esc(p.q) + '</span><button type="button" class="prompt-dismiss" data-act="dismiss-prompt" title="Dismiss this prompt" aria-label="Dismiss prompt">×</button></div>';
     }
     return '<div class="write">' +
-      '<div class="editor-wrap"><div class="editor">' + strip +
+      '<div class="editor-wrap"><div class="editor"><div class="row-btns"><button class="link-btn" data-act="go-today">← Choose a starting point</button><button class="link-btn" data-act="develop-existing">Help me shape this</button></div>' + developmentReference(d) + strip +
         '<label class="sr" for="titleInput">Title (optional)</label><input class="title-input" id="titleInput" type="text" autocomplete="off" placeholder="Title (optional)" value="' + esc(d.title) + '">' +
         '<label class="sr" for="bodyInput">Your post</label><textarea class="body-input" id="bodyInput" placeholder="Start typing. Nobody can see this yet.">' + esc(d.body) + '</textarea>' +
         '<div class="editor-foot" id="editorFoot"></div>' +
@@ -910,13 +970,13 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
           '<form class="pin-form" id="pinForm"><label class="sr" for="pinInput">New pin</label><input class="field" id="pinInput" maxlength="120" placeholder="Note to self..." autocomplete="off"><button type="submit" class="btn btn-sm">Pin</button></form></details>' +
         '<div class="panel-cta" id="ctaBox" hidden>' +
           '<button type="button" class="btn" data-act="save-private" style="min-height: 48px;">Save privately</button>' +
-          '<button type="button" class="btn btn-rx" data-act="fill" style="min-height: 52px; font-size: 17px;">Post with Buffer <span class="kbd">Ctrl ↵</span></button>' +
+          '<button type="button" class="btn" data-act="sync-content">Save writing to Buffer</button><span class="empty" id="contentSyncStatus" role="status">' + esc(d.bufferContent ? (d.bufferContent.state === 'posts' ? 'Linked to Buffer posts. Your original stays here.' : 'Writing saved to Buffer. Click to update.') : 'Optional: save without choosing a channel.') + '</span><button type="button" class="btn btn-rx" data-act="fill" style="min-height: 52px; font-size: 17px;">Post with Buffer <span class="kbd">Ctrl ↵</span></button>' +
           '<span class="mono" style="font-size: 11.5px; color: var(--ink3); text-align: center;">Add to queue, schedule, or save to Buffer</span></div>' +
       '</aside></div>';
   }
   function renderView() {
     var v = $('view');
-    v.innerHTML = S.view === 'write' ? viewWrite() : S.view === 'spark' ? viewSpark() : S.view === 'drafts' ? viewDrafts() : viewToday();
+    v.innerHTML = S.view === 'develop' ? viewDevelop() : S.view === 'opinions' ? viewOpinions() : S.view === 'write' ? viewWrite() : S.view === 'spark' ? viewSpark() : S.view === 'drafts' ? viewDrafts() : viewToday();
     if (S.view === 'today' && !S.onboarded) { v.insertAdjacentHTML('afterbegin', '<div class="card" style="margin:18px 20px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between;"><div><b>Start with your story.</b><p class="empty" style="margin:4px 0 0">Write freely, or take a quick optional tour. Nothing posts automatically.</p></div><div class="row-btns"><button class="btn btn-sm" data-act="tour-dismiss">Start writing</button><button class="btn btn-sm btn-rx" data-act="tour">Take a Tour</button></div></div>'); }
     if (S.view === 'write') bindEditor();
   }
@@ -1075,7 +1135,7 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
             [['queue', 'Add to queue'], ['schedule', 'Schedule'], ['draft', 'Save as draft']].map(function (m) { return '<button type="button" data-mode="' + m[0] + '" aria-pressed="' + (fillState.mode === m[0]) + '">' + m[1] + '</button>'; }).join('') + '</div>' +
             '<div class="when-note">' + (fillState.mode === 'queue' ? 'Goes out at your next open Buffer time slot, on the channels you picked.' :
               fillState.mode === 'schedule' ? '<label for="whenInput">Post at</label><input id="whenInput" type="datetime-local" value="' + esc(fillState.when) + '"><span class="mono" style="font-size: 12px; color: var(--ink3);">Next open slot in your queue: ' + esc(slot.label) + '</span>' :
-              'Saves it to your Buffer Ideas so you can post it later. Nothing goes out yet.') + '</div></div>' +
+              'Saves a draft for each selected channel in Buffer. Nothing goes out yet.') + '</div></div>' +
         '</div><div class="modal-col"><span class="label" id="pvName">Preview · ' + esc(pv.name) + '</span>' +
           '<div class="preview"><div class="who"><span>You</span><div style="line-height: 1.3;"><div style="font-weight: 700; font-size: 13.5px;">Your name</div><div style="font-size: 11.5px; color: #66645F;">Now</div></div></div><div class="txt" id="pvText">' + esc(postText(d, pv.id)) + '</div></div>' +
           '<span class="mono" style="font-size: 11.5px; color: var(--ink3);">Previews are approximate. Buffer formats the final post for each channel.</span>' +
@@ -1110,26 +1170,68 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
     var paras = draftText(d).split(/\n\s*\n/), first = (d.body || '').split(/\n\s*\n/)[0] || paras[0] || '';
     return first.trim();
   }
+  var contentBusy = false;
+  async function contentConnection() {
+    if (!hasBufferToken()) { openConnect(); throw new Error('Connect Buffer first. Your writing stays saved here.'); }
+    var C = await ensureBufferShared();
+    window.BufferConnection.init({ prefix:C.prefix, clientId:C.clientId, tokenEndpoint:C.tokenEndpoint, refreshSkewMs:5*60*1000 });
+  }
+  async function syncWriting(d) {
+    var text=draftText(d);
+    if (!text) throw new Error('Write a few words before saving to Buffer.');
+    var API=window.TWWContentItems, result;
+    if (d.bufferContent && d.bufferContent.id) {
+      result=await API.read(d.bufferContent.id);
+      if (result.body.__typename !== 'DraftContent') {
+        d.bufferContent.state='posts'; save(true);
+        throw new Error('This writing already has channel posts in Buffer. Edit those in Buffer; your original stays here.');
+      }
+      if (result.body.text !== d.bufferContent.lastText) throw new Error('This draft changed in Buffer. Review it there before making further updates. Your local writing is safe.');
+      if ((result.body.assets || []).length) throw new Error('This draft has attachments in Buffer. Edit it there to keep those attachments safe.');
+      result=await API.update({id:result.id,draft:{text:text,aiAssisted:!!result.body.aiAssisted,assets:[]}});
+    } else {
+      var org=await API.organization();
+      result=await API.create({organizationId:org,title:d.title || 'Writing from Take With Words',draft:{text:text,aiAssisted:false,assets:[]}});
+    }
+    d.bufferContent={id:result.id,state:'draft',lastText:text}; save(true);
+    return result;
+  }
+  async function saveWritingToBuffer(button) {
+    if(contentBusy) return;
+    var d=active(); if(!d) return;
+    if(!hasBufferToken()) { openConnect(); return; }
+    contentBusy=true; button.disabled=true;
+    var status=$('contentSyncStatus'); if(status) status.textContent='Saving to Buffer…';
+    try { await contentConnection(); await syncWriting(d); if(status) status.textContent='Saved to Buffer without a channel. Nothing is scheduled.'; toast('Writing saved to Buffer.'); }
+    catch(err) { if(status) status.textContent=err.message; toast(err.message); }
+    finally { contentBusy=false; button.disabled=false; }
+  }
   async function doSend() {
-    var d = active(); if (!d) return;
+    var d = active(); if (!d || contentBusy) return;
     var sel = CH().filter(function (c) { return S.buffer.selected[c.id]; });
     if (!sel.length) return;
     var mode = fillState.mode;
+    contentBusy=true;
     var sendBtn = $('sendBtn'); if (sendBtn) { sendBtn.disabled = true; sendBtn.textContent = 'Sending…'; }
     var st = $('fillStatus');
     try {
       var C = await ensureBufferShared();
       window.BufferConnection.init({ prefix: C.prefix, clientId: C.clientId, tokenEndpoint: C.tokenEndpoint, refreshSkewMs: 5 * 60 * 1000 });
-      var done = [];
-      for (var i = 0; i < sel.length; i++) {
-        var c = sel[i];
-        var input = { channelId: c.id, text: postText(d, c.id), schedulingType: 'automatic' };
-        if (mode === 'draft') { input.mode = 'addToQueue'; input.saveToDraft = true; }
-        else if (mode === 'schedule') { input.mode = 'customScheduled'; input.dueAt = new Date(fillState.when).toISOString(); }
-        else { input.mode = 'addToQueue'; }
-        await window.BufferAPI.createPost(input);
-        done.push(c.name);
-      }
+      // Keep one source item and create all selected channel variants atomically.
+      await syncWriting(d);
+      var posts=sel.map(function(c) {
+        var input={channelId:c.id,text:postText(d,c.id),schedulingType:'automatic',mode:'addToQueue'};
+        if(mode==='draft') input.saveToDraft=true;
+        else if(mode==='schedule') {input.mode='customScheduled';input.dueAt=new Date(fillState.when).toISOString();}
+        return input;
+      });
+      var result=await window.TWWContentItems.promote({id:d.bufferContent.id,posts:posts});
+      var confirmed=result.body && result.body.posts || [];
+      d.bufferContent.state='posts';
+      d.bufferContent.posts=confirmed;
+      save(true); // Retain returned IDs even if the UI cannot confirm every state.
+      if(mode==='draft' && (confirmed.length!==sel.length || !confirmed.every(function(p){return p.status==='draft';}))) throw new Error('Buffer returned a different post state. Review the linked posts in Buffer before continuing.');
+      var done=sel.map(function(c){return c.name;});
       d.status = mode === 'draft' ? 'idea' : 'queued';
       d.sentTo = done; d.updated = Date.now(); d.demo = false;
       if (mode === 'schedule') d.scheduledFor = fillState.when;
@@ -1139,7 +1241,7 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
     } catch (err) {
       if (sendBtn) { sendBtn.disabled = false; sendBtn.textContent = 'Try again'; }
       if (st) { st.textContent = 'Buffer couldn’t send this: ' + (err.message || 'unknown error') + '. Your draft is safe.'; st.style.color = 'var(--bad)'; }
-    }
+    } finally { contentBusy=false; }
   }
   function showFilled(mode, sel) {
     var where = sel.join(' and ');
@@ -1202,19 +1304,23 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
   /* ---------- Buffer sign-in (real OAuth). Posting stays off until it is built. ---------- */
   var POSTING_LIVE = true;
   var REDIRECT_PROD = 'https://takewithwords.netlify.app/auth/callback.html';
+  var loadingScripts = {};
   function loadScriptOnce(src) {
-    return new Promise(function (resolve, reject) {
-      if (document.querySelector('script[data-src="' + src + '"]')) { resolve(); return; }
-      var s = document.createElement('script'); s.src = src; s.dataset.src = src;
-      s.onload = resolve; s.onerror = function () { reject(new Error('Could not load ' + src)); };
-      document.head.appendChild(s);
+    if (loadingScripts[src]) return loadingScripts[src];
+    loadingScripts[src] = new Promise(function (resolve, reject) {
+      var script = document.createElement('script'); script.src=src; script.dataset.src=src;
+      script.onload=resolve;
+      script.onerror=function(){ delete loadingScripts[src]; script.remove(); reject(new Error('Could not load ' + src)); };
+      document.head.appendChild(script);
     });
+    return loadingScripts[src];
   }
   async function ensureBufferShared() {
     if (!window.TWW_BUFFER) await loadScriptOnce('/js/buffer-config.js');
     if (!window.BufferConnection) await loadScriptOnce('/js/shared/connection.js');
     if (!window.BufferOAuth) await loadScriptOnce('/js/shared/oauth.js');
     if (!window.BufferAPI) await loadScriptOnce('/js/buffer-api.js');
+    if (!window.TWWContentItems) await loadScriptOnce('/js/content-items.js');
     if (!window.BufferOAuth || !window.BufferConnection) throw new Error('Buffer sign-in did not load.');
     return window.TWW_BUFFER;
   }
@@ -1451,24 +1557,27 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
         : '<p>Save writers you admire, so you can see how they found their voice.</p>') +
       '<button type="button" class="btn btn-sm" data-act="references">' + (refs.length ? 'Manage references' : 'Add a reference') + '</button></div>';
   }
+  var creatorSearch = '';
+  function safeProfile(value) {
+    try { var url=new URL(value); return /^https?:$/.test(url.protocol) ? url.href : ''; } catch(e) { return ''; }
+  }
+  function viewOpinions() {
+    if (!feat('secondOpinions')) return '<div class="spark"><h1>Second Opinions is turned off</h1><button class="btn" data-act="settings">Open Settings</button></div>';
+    return '<div class="spark opinions-page"><header><span class="label">A little perspective</span><h1 class="display">Second Opinions</h1><p>Keep creators whose writing makes you want to write. Notice their approach, then find your own.</p></header><div class="row-btns"><button class="btn btn-rx" data-act="ref-add">Add a creator</button><span class="empty">' + (S.references || []).length + ' saved · private on this device</span></div><label class="label" for="creatorSearch">Find a saved creator</label><input class="field" id="creatorSearch" type="search" value="' + esc(creatorSearch) + '" placeholder="Search names, handles, or notes"><div id="refList">' + refListHtml() + '</div></div>';
+  }
   function refListHtml() {
-    var refs = S.references || [];
-    if (!refs.length) return '<p class="empty">No references yet. Add the first one below.</p>';
+    var all = S.references || [], query=creatorSearch.toLowerCase();
+    var refs=all.filter(function(r){return [r.name,r.handle,r.note].join(' ').toLowerCase().indexOf(query)!==-1;});
+    if (!refs.length) return '<section class="card"><h2>' + (all.length ? 'No matches yet.' : 'Who makes you stop scrolling?') + '</h2><p>' + (all.length ? 'Try another name, handle, or detail from your notes.' : 'Add a creator, their profile link, and what you admire about their writing. Your list starts with you.') + '</p></section>';
     return '<ul class="ref-list">' + refs.map(function (r) {
-      return '<li><div class="grow"><b>' + esc(r.name) + '</b>' + (r.handle ? ' <span class="mono">' + esc(r.handle) + '</span>' : '') + (r.note ? '<div class="ref-note">' + esc(r.note) + '</div>' : '') + '</div><button type="button" class="link-btn" data-ref-remove="' + r.id + '">Remove</button></li>';
+      return '<li><div class="grow"><b>' + esc(r.name) + '</b>' + (r.handle ? ' <span class="mono">' + esc(r.handle) + '</span>' : '') + (r.note ? '<div class="ref-note">' + esc(r.note) + '</div>' : '') + (safeProfile(r.handle) ? '<a class="link-btn" href="' + esc(safeProfile(r.handle)) + '" target="_blank" rel="noopener noreferrer">Visit profile ↗</a>' : '') + '</div><button class="link-btn" data-act="ref-edit" data-id="' + esc(r.id) + '" aria-label="Edit ' + esc(r.name) + '">Edit</button><button type="button" class="link-btn" data-ref-remove="' + esc(r.id) + '" aria-label="Remove ' + esc(r.name) + '">Remove</button></li>';
     }).join('') + '</ul>';
   }
-  function openReferences() {
+  function openReferences(id) {
+    var ref=(S.references || []).filter(function(r){return r.id===id;})[0] || {};
     lastFocus = document.activeElement;
-    $('modalRoot').innerHTML = '<div class="overlay" data-close="1"><div class="modal connect" role="dialog" aria-modal="true" aria-labelledby="roH">' +
-      '<div class="modal-head"><h2 id="roH">Second Opinions</h2><button type="button" class="icon-btn" data-close="1" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></div>' +
-      '<div class="modal-body">' +
-        '<p style="margin:0;font-size:15px;">Save writers whose posts you admire. When you’re stuck, a quick look at how someone else does it helps — a second opinion.</p>' +
-        '<div id="refList">' + refListHtml() + '</div>' +
-        '<form id="refForm" class="ref-form"><input id="refName" placeholder="Name (a writer you like)" autocomplete="off" required><input id="refHandle" placeholder="Handle or link (optional)" autocomplete="off"><input id="refNote" placeholder="What you like about how they write (optional)" autocomplete="off"><button type="submit" class="btn btn-rx">Add reference</button></form>' +
-      '</div></div></div>';
-    document.addEventListener('keydown', modalKeys);
-    var n = $('refName'); if (n) n.focus();
+    $('modalRoot').innerHTML = '<div class="overlay" data-close="1"><div class="modal connect" role="dialog" aria-modal="true" aria-labelledby="roH"><div class="modal-head"><h2 id="roH">' + (ref.id ? 'Edit creator' : 'Add a creator') + '</h2><button class="icon-btn" data-close="1" aria-label="Close">×</button></div><div class="modal-body"><form id="refForm" class="ref-form" data-id="' + esc(ref.id || '') + '"><label for="refName">Creator name</label><input id="refName" required maxlength="120" value="' + esc(ref.name || '') + '" autocomplete="off"><label for="refHandle">Profile link or handle (optional)</label><input id="refHandle" maxlength="1000" value="' + esc(ref.handle || '') + '" placeholder="https://… or @handle" autocomplete="off"><label for="refNote">What do you like about their writing?</label><textarea class="field" id="refNote" rows="4" maxlength="3000" placeholder="Their stories, honesty, openings, or how they explain things…">' + esc(ref.note || '') + '</textarea><div class="row-btns"><button type="button" class="btn" data-act="ref-cancel">Cancel</button><button type="submit" class="btn btn-rx">Save creator</button></div></form></div></div></div>';
+    document.addEventListener('keydown', modalKeys); $('refName').focus();
   }
 
   /* ---------- Events ---------- */
@@ -1476,7 +1585,7 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
     var t = e.target;
     var nav = t.closest('.nav button[data-view]'); if (nav) {
       var v = nav.dataset.view;
-      if (v === 'write' && !active()) { if (S.drafts.length) S.activeId = S.drafts[0].id; else { newDraft(PROMPTS[doseIndex()].id); return; } }
+      if (v === 'write' && !active()) { if (S.drafts.length) S.activeId = S.drafts[0].id; else { S.view = 'today'; save(true); renderAll(); return; } }
       S.view = v; document.body.classList.remove('mobile-menu-open'); save(true); renderAll(); return;
     }
     var open = t.closest('[data-open]'); if (open) { S.activeId = open.dataset.open; S.view = 'write'; save(true); renderAll(); return; }
@@ -1490,7 +1599,7 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
       return;
     }
     var rest = t.closest('[data-restore]'); if (rest) { restoreDraft(rest.dataset.restore); return; }
-    var rfr = t.closest('[data-ref-remove]'); if (rfr) { S.references = (S.references || []).filter(function (x) { return x.id !== rfr.dataset.refRemove; }); save(true); var rl2 = $('refList'); if (rl2) rl2.innerHTML = refListHtml(); renderSecondOpinions(); return; }
+    var rfr = t.closest('[data-ref-remove]'); if (rfr) { S.references = (S.references || []).filter(function (x) { return x.id !== rfr.dataset.refRemove; }); save(true); renderView(); return; }
     var unpin = t.closest('[data-unpin]'); if (unpin) { S.pins = S.pins.filter(function (p) { return p.id !== unpin.dataset.unpin; }); save(true); renderPins(); var l = $('pinH'); if (l) l.querySelector('.label').textContent = S.pins.length; return; }
     var th = t.closest('.theme-pick button'); if (th) { S.theme = th.dataset.theme; save(true); document.body.setAttribute('data-theme', S.theme); if ($('modalRoot').innerHTML) drawSettings(); else renderTop(); return; }
     var flt = t.closest('[data-filter]'); if (flt) { S.sparkFilter = flt.dataset.filter; save(true); renderView(); return; }
@@ -1508,7 +1617,16 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
     }
     var act = t.closest('[data-act]'); if (!act) return;
     var a = act.dataset.act;
-    if (a === 'toggle-side') { var collapsed = document.body.classList.toggle('side-collapsed'); localStorage.setItem('tww-side-collapsed', String(collapsed)); act.setAttribute('aria-expanded', String(!collapsed)); }
+    if (a === 'develop-new') beginDevelopment(true);
+    else if (a === 'develop-existing') beginDevelopment(false);
+    else if (a === 'develop-next' || a === 'develop-back') { var gd=active(); if(gd && gd.development) { gd.development.step=Math.max(0,Math.min(4,(gd.development.step||0)+(a==='develop-next'?1:-1))); save(true); renderAll(); var ga=$('developmentAnswer'); if(ga) ga.focus(); } }
+    else if (a === 'develop-angle') { var ad=active(); if(ad && ad.development) { ad.development.angle=act.dataset.id; save(true); renderView(); } }
+    else if (a === 'develop-write') { S.view='write'; save(true); renderAll(); $('bodyInput').focus(); }
+    else if (a === 'sync-content') saveWritingToBuffer(act);
+    else if (a === 'ref-add') openReferences();
+    else if (a === 'ref-edit') openReferences(act.dataset.id);
+    else if (a === 'ref-cancel') closeModal();
+    else if (a === 'toggle-side') { var collapsed = document.body.classList.toggle('side-collapsed'); localStorage.setItem('tww-side-collapsed', String(collapsed)); act.setAttribute('aria-expanded', String(!collapsed)); }
     else if (a === 'mobile-menu') document.body.classList.add('mobile-menu-open');
     else if (a === 'close-mobile') document.body.classList.remove('mobile-menu-open');
     else if (a === 'tour') { closeModal(); showTour(); }
@@ -1553,7 +1671,7 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
       save(true); closeModal(); renderAll(); toast(added ? ('Added ' + added + ' to your work log.') : 'Those are already in your work log.');
     }
     else if (a === 'log-pick') { var li = +act.dataset.i, lw = S.workLog[li], ri = $('recallInput'); if (lw && ri) { ri.value = lw.text; ri.focus(); ri.setSelectionRange(ri.value.length, ri.value.length); } }
-    else if (a === 'references') openReferences();
+    else if (a === 'references') { S.view='opinions'; save(true); renderAll(); }
     else if (a === 'sprint-start') { sprint.total = sprint.left = 25 * 60; startSprintTimer(); renderTop(); drawSprint(); }
     else if (a === 'sprint-toggle') { if (sprint.timer) stopSprintTimer(); else startSprintTimer(); renderTop(); drawSprint(); }
     else if (a === 'sprint-stop') { stopSprintTimer(); sprint.left = sprint.total; renderTop(); drawSprint(); }
@@ -1569,8 +1687,9 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
       e.preventDefault();
       var rn = $('refName').value.trim(); if (!rn) return;
       if (!S.references) S.references = [];
-      S.references.push({ id: uid(), name: rn, handle: $('refHandle').value.trim(), note: $('refNote').value.trim() });
-      save(true); var rl = $('refList'); if (rl) rl.innerHTML = refListHtml(); e.target.reset(); renderSecondOpinions(); var nn = $('refName'); if (nn) nn.focus();
+      var refId=e.target.dataset.id, entry={ id: refId || uid(), name: rn, handle: $('refHandle').value.trim(), note: $('refNote').value.trim() };
+      if (refId) S.references=S.references.map(function(r){return r.id===refId ? entry : r;}); else S.references.push(entry);
+      save(true); closeModal(); renderAll(); toast('Creator saved.');
       return;
     }
     if (e.target.id !== 'musicForm') return;
@@ -1580,6 +1699,8 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
     S.music = { url: v.trim() }; save(true); renderMusic(); setPlayer(); toast(em.kind + ' playlist added. Press play when you\'re ready.');
   });
   document.addEventListener('input', function (e) {
+    if (e.target.id==='creatorSearch') { creatorSearch=e.target.value; $('refList').innerHTML=refListHtml(); return; }
+    if (e.target.dataset.development) { var gd=active(); if(gd && gd.development) { gd.development[e.target.dataset.development]=e.target.value; gd.updated=Date.now(); save(); } return; }
     var v = e.target.closest && e.target.closest('[data-variant]'); if (!v) return;
     var d = active(); if (!d) return; d.variants[v.dataset.variant] = v.value; save(); openFill.refresh();
   });
@@ -1597,6 +1718,7 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
       if (send) doSend(); else if (S.view === 'write' && !$('modalRoot').innerHTML) openFill();
     }
   });
+  window.addEventListener('pagehide', function () { save(true); });
   $('zenExit').addEventListener('click', function () { setZen(false); });
 
   S.drafts.forEach(function (d) { if (d.counted == null) d.counted = words(draftText(d)); });
@@ -1613,3 +1735,4 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
 </script>
 </body>
 </html>
+
