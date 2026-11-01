@@ -1,5 +1,6 @@
 const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
+const proxy=require('../netlify/functions/buffer-proxy.js');
 (async()=>{
  const browser=await chromium.launch({headless:true,executablePath:process.env.CHROMIUM_PATH,args:['--no-sandbox','--disable-dev-shm-usage','--disable-gpu']});
  const page=await browser.newPage({viewport:{width:1440,height:1000}});
@@ -20,7 +21,11 @@ const assert=require('node:assert/strict');
   else if(query.includes('contentItem(input:'))data={contentItem:item};
   else if(query.includes('channels(input:'))data={channels:[channel]};
   else data={account:{organizations:[{id:'org1',name:'My org'}]}};
-  await route.fulfill({json:{data}});
+  // Exercise the uploaded baseline's real proxy guards before mocking Buffer upstream.
+  global.fetch=async()=>({status:200,text:async()=>JSON.stringify({data})});
+  const response=await proxy.handler({httpMethod:'POST',headers:{origin:'http://127.0.0.1:8765'},body:route.request().postData()});
+  assert.equal(response.statusCode,200,'actual browser operation must pass proxy allowlist');
+  await route.fulfill({status:response.statusCode,headers:response.headers,body:response.body});
  });
  await page.goto('http://127.0.0.1:8765/app/');
  await page.locator('[data-act="sync-content"]').waitFor({state:'visible'});
@@ -64,3 +69,4 @@ const assert=require('node:assert/strict');
  console.log('PASS: consent-only upload, private notes, conflict/attachment protection, failed promotion recovery, one linked item, confirmed channel draft IDs.');
  await browser.close();
 })().catch(e=>{console.error(e);process.exit(1)});
+

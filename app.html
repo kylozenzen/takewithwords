@@ -653,6 +653,7 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
   ];
 
   /* ---------- State + storage ---------- */
+  // Drafts are stored under this key. Do NOT rename it: existing users' drafts live here.
   var KEY = 'doctors-orders-app-v1';
   function uid() { return Math.random().toString(36).slice(2, 9); }
   function todayKey(d) { d = d || new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
@@ -1090,7 +1091,7 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
       '<div class="modal-body"><span class="chip" style="align-self: flex-start; background: var(--caution); color: #111110; border-color: #111110;">Never heard of Buffer? Normal.</span>' +
       '<p style="margin: 0; font-size: 16px;">Buffer is a free social media scheduler. Connect your accounts once and it posts for you, right now or at a time you pick. Take With Words is where you write; Buffer is how it gets out the door.</p>' +
       '<ol class="steps"><li><span class="n">01</span><span><b>Create a free Buffer account</b><br><span style="font-size: 13.5px; color: var(--ink2);">About two minutes.</span></span></li><li><span class="n">02</span><span><b>Connect where you post</b><br><span style="font-size: 13.5px; color: var(--ink2);">LinkedIn, Threads, Bluesky, whatever you use.</span></span></li><li><span class="n">03</span><span><b>Come back and connect it here</b><br><span style="font-size: 13.5px; color: var(--ink2);">Your draft stays saved while you\'re gone.</span></span></li></ol>' +
-      '<p class="mono" style="margin: 0; font-size: 12px; color: var(--ink3);">No copay: Buffer\'s free plan covers up to 3 channels and 10 scheduled posts per channel.</p>' +
+      '<p class="mono" style="margin: 0; font-size: 12px; color: var(--ink3);">Buffer\'s free plan has limits on channels and scheduled posts. Check buffer.com for the current numbers.</p>' +
       '<div style="display: flex; flex-wrap: wrap; gap: 10px;"><a class="btn btn-rx" href="https://buffer.com" target="_blank" rel="noopener">Create a free Buffer account</a><button type="button" class="btn" data-act="do-connect">Connect Buffer</button></div>' +
       '<p class="mono" style="margin: 0; font-size: 11.5px; color: var(--ink3);">Signing in does not post anything. You can post, schedule or save to Buffer after you connect.</p>' +
       '</div></div></div>';
@@ -1320,6 +1321,7 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
     if (!window.BufferConnection) await loadScriptOnce('/js/shared/connection.js');
     if (!window.BufferOAuth) await loadScriptOnce('/js/shared/oauth.js');
     if (!window.BufferAPI) await loadScriptOnce('/js/buffer-api.js');
+    if (!window.TWWContentItemOperations) await loadScriptOnce('/js/content-item-operations.js');
     if (!window.TWWContentItems) await loadScriptOnce('/js/content-items.js');
     if (!window.BufferOAuth || !window.BufferConnection) throw new Error('Buffer sign-in did not load.');
     return window.TWW_BUFFER;
@@ -1735,4 +1737,5 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
 </script>
 </body>
 </html>
+
 
