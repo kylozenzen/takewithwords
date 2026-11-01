@@ -1,0 +1,1615 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Take With Words</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Take With Words: a small prescription for getting comfortable with your own voice. Daily prompts, a quiet editor and a checkup, posted with Buffer.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M15 41 L8 55 L26 44 Z' fill='%23FF6A1F' stroke='%23111110' stroke-width='3' stroke-linejoin='round'/%3E%3Crect x='4' y='15' width='56' height='30' rx='15' fill='%23fff'/%3E%3Cpath d='M19 15 H32 V45 H19 A15 15 0 0 1 19 15 Z' fill='%23FF6A1F'/%3E%3Cpath d='M32 15 V45' stroke='%23111110' stroke-width='3'/%3E%3Crect x='4' y='15' width='56' height='30' rx='15' fill='none' stroke='%23111110' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500;600&family=Caveat:wght@700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<style>
+:root, [data-theme="clinic"] {
+  --bg: #F7F6F1; --surface: #FFFFFF; --sunk: #EFEDE6; --ink: #111110; --ink2: #3B3A36; --ink3: #5A5852;
+  --line: #111110; --hair: #D9D6CC; --accent: #FF6A1F; --on-accent: #111110; --tint: #FFE3D2; --caution: #FFD43B;
+  --shadow: #111110; --good: #1E7A44; --warn: #9A5B00; --bad: #B3261E;
+}
+[data-theme="night"] {
+  --bg: #121211; --surface: #1C1C1A; --sunk: #171716; --ink: #F2F0E8; --ink2: #D2CFC5; --ink3: #A6A398;
+  --line: #6F6C63; --hair: #34332F; --accent: #FF7A33; --on-accent: #111110; --tint: #3A2416; --caution: #FFD43B;
+  --shadow: #000000; --good: #6FCF97; --warn: #F2C14E; --bad: #FF8A80;
+}
+[data-theme="scrubs"] {
+  --bg: #E6F0EB; --surface: #FFFFFF; --sunk: #D9E7E0; --ink: #0F1F19; --ink2: #2E4239; --ink3: #4B5F56;
+  --line: #0F1F19; --hair: #BCD1C6; --accent: #FF6A1F; --on-accent: #0F1F19; --tint: #FFE3D2; --caution: #FFD43B;
+  --shadow: #0F1F19; --good: #1E7A44; --warn: #8A5300; --bad: #B3261E;
+}
+:root {
+  --display: 'Archivo', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+  --sans: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+  --serif: 'Newsreader', Georgia, serif;
+  --hand: 'Caveat', 'Bradley Hand', 'Segoe Print', cursive;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; cursor: pointer; }
+a { color: var(--ink); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+[hidden] { display: none !important; }
+.mono { font-family: var(--mono); }
+.label { font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink3); }
+.display { font-family: var(--display); font-weight: 900; font-stretch: 70%; text-transform: uppercase; line-height: 0.9; letter-spacing: -0.01em; margin: 0; }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 18px; border: 2px solid var(--line); background: var(--surface); font-weight: 800; font-size: 15px; text-decoration: none; transition: transform .1s ease, box-shadow .1s ease; white-space: nowrap; }
+.btn:hover { background: var(--sunk); }
+.btn-rx { background: var(--accent); color: var(--on-accent); border-color: var(--ink); box-shadow: 3px 3px 0 var(--shadow); }
+.btn-rx:hover { background: var(--accent); transform: translate(-1px, -1px); box-shadow: 4px 4px 0 var(--shadow); }
+.btn-rx:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--shadow); }
+.btn-ink { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.btn-ink:hover { background: var(--ink2); }
+.btn-ghost { background: transparent; }
+.btn-sm { min-height: 36px; padding: 0 12px; font-size: 13px; }
+.btn[disabled] { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+.link-btn { background: none; border: 0; padding: 6px 0; min-height: 36px; font-family: var(--mono); font-size: 12.5px; text-decoration: underline; text-underline-offset: 3px; }
+.kbd { font-family: var(--mono); font-size: 11px; padding: 1px 5px; border: 1.5px solid currentColor; opacity: .75; font-weight: 500; }
+.icon-btn { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid transparent; background: transparent; }
+.icon-btn:hover { border-color: var(--line); }
+
+/* App shell */
+.app { display: grid; grid-template-columns: 252px minmax(0, 1fr); height: 100vh; }
+.side { border-right: 2px solid var(--line); background: var(--surface); display: flex; flex-direction: column; min-height: 0; }
+.brand { display: flex; align-items: center; gap: 10px; padding: 18px 18px 16px; border-bottom: 2px solid var(--line); }
+.brand-name { white-space: nowrap; font-family: var(--display); font-weight: 900; font-stretch: 72%; font-size: 19px; text-transform: uppercase; letter-spacing: -0.01em; }
+.nav { display: flex; flex-direction: column; padding: 12px 10px; gap: 2px; }
+.nav button { display: flex; align-items: center; gap: 12px; min-height: 42px; padding: 0 12px; border: 2px solid transparent; background: transparent; font-weight: 700; font-size: 15px; text-align: left; }
+.nav button:hover { border-color: var(--hair); }
+.nav button[aria-current="page"] { border-color: var(--line); background: var(--tint); }
+.nav .count { margin-left: auto; font-family: var(--mono); font-size: 11px; color: var(--ink3); }
+.side-section { padding: 6px 18px 4px; }
+.side-drafts { flex: 1 1 auto; overflow: auto; padding: 0 10px 10px; display: flex; flex-direction: column; gap: 2px; min-height: 0; }
+.side-drafts button { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; padding: 8px 12px; border: 2px solid transparent; background: transparent; text-align: left; width: 100%; }
+.side-drafts button:hover { border-color: var(--hair); }
+.side-drafts button[aria-current="true"] { border-color: var(--line); }
+.side-drafts .t { font-weight: 700; font-size: 14px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.side-drafts .m { font-family: var(--mono); font-size: 11px; color: var(--ink3); }
+.buffer-card { margin: 10px; padding: 12px; border: 2px solid var(--line); display: flex; flex-direction: column; gap: 6px; background: var(--bg); }
+.buffer-card .row { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 14px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; border: 1.5px solid var(--ink); }
+.buffer-card p { margin: 0; font-size: 12.5px; color: var(--ink2); }
+
+.main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 18px; border-bottom: 2px solid var(--line); background: var(--bg); min-height: 62px; flex-wrap: wrap; }
+.topbar-left, .topbar-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.saved { font-family: var(--mono); font-size: 12px; color: var(--ink3); display: inline-flex; align-items: center; gap: 6px; }
+.saved i { width: 8px; height: 8px; background: var(--accent); border: 1.5px solid var(--ink); display: inline-block; }
+.view { flex: 1 1 auto; min-height: 0; overflow: auto; }
+
+/* Sprint */
+.sprint { display: inline-flex; align-items: center; gap: 8px; padding: 3px 10px 3px 4px; border: 2px solid var(--line); background: var(--surface); min-height: 40px; }
+.sprint svg { display: block; }
+.sprint .time { font-family: var(--mono); font-size: 14px; font-weight: 600; min-width: 46px; }
+.sprint button { border: 0; background: transparent; font-family: var(--mono); font-size: 12px; text-decoration: underline; text-underline-offset: 3px; padding: 6px 2px; }
+
+/* Theme picker */
+.theme-pick { display: inline-flex; border: 2px solid var(--line); }
+.theme-pick button { width: 36px; height: 36px; border: 0; background: transparent; display: inline-flex; align-items: center; justify-content: center; }
+.theme-pick button + button { border-left: 2px solid var(--line); }
+.theme-pick button[aria-pressed="true"] { background: var(--tint); }
+.theme-pick span { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--ink); }
+
+/* Today */
+.today { max-width: 1080px; margin: 0 auto; padding: 32px 32px 48px; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+.today-head { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.dose { background: var(--surface); border: 2px solid var(--line); box-shadow: 6px 6px 0 var(--shadow); }
+.dose-head { display: flex; justify-content: space-between; padding: 10px 18px; border-bottom: 2px solid var(--line); }
+.dose-body { padding: 22px 18px 18px; display: flex; flex-direction: column; gap: 16px; }
+.dose-q { margin: 0; font-size: 28px; font-weight: 800; line-height: 1.2; }
+.dose-tip { margin: 0; color: var(--ink2); }
+.dose-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.card { background: var(--surface); border: 2px solid var(--line); padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; }
+.week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.week div { display: flex; flex-direction: column; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; color: var(--ink3); }
+.week span { width: 100%; height: 26px; border-radius: 13px; border: 2px solid var(--hair); }
+.week .on span { background: var(--accent); border-color: var(--ink); }
+.week .today-mark { color: var(--ink); font-weight: 600; }
+.week .today-mark span { border: 2px dashed var(--ink); }
+.week .on.today-mark span { border-style: solid; }
+.list { display: flex; flex-direction: column; }
+.list-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid var(--hair); }
+.list-item:first-child { border-top: 0; }
+.list-item .grow { flex: 1 1 auto; min-width: 0; }
+.list-item .t { font-weight: 700; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.chip { display: inline-flex; align-items: center; font-family: var(--mono); font-size: 11px; padding: 2px 7px; border: 1.5px solid var(--line); white-space: nowrap; background: var(--surface); }
+.chip.posted { background: var(--accent); color: var(--on-accent); border-color: var(--ink); }
+.chip.queued { background: var(--caution); color: #111110; border-color: var(--ink); }
+.chip.idea { background: var(--tint); }
+.empty { color: var(--ink3); font-size: 14px; margin: 0; }
+
+/* Write */
+.write { display: grid; grid-template-columns: minmax(0, 1fr) 330px; height: 100%; min-height: 0; }
+.editor-wrap { overflow: auto; min-height: 0; display: flex; justify-content: center; }
+.editor { width: 100%; max-width: 720px; padding: 28px 40px 80px; display: flex; flex-direction: column; gap: 14px; }
+.prompt-strip { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border: 2px solid var(--line); background: var(--surface); }
+.prompt-strip .q { font-weight: 800; font-size: 16px; line-height: 1.3; flex: 1 1 auto; }
+.title-input { border: 0; background: transparent; font-family: var(--display); font-weight: 700; font-stretch: 100%; font-size: 20px; line-height: 1.2; text-transform: none; color: var(--ink2); padding: 4px 0 0; width: 100%; }
+.title-input::placeholder { color: var(--ink3); opacity: .55; }
+.title-input:focus-visible, .body-input:focus-visible { outline: none; }
+.body-input { border: 0; background: transparent; resize: none; width: 100%; min-height: 360px; font-size: var(--body-size, 19px); line-height: 1.65; color: var(--ink); padding: 0; overflow: hidden; }
+.body-input::placeholder { color: var(--ink3); opacity: .7; }
+[data-font="serif"] .body-input { font-family: var(--serif); }
+[data-font="sans"] .body-input { font-family: var(--sans); }
+.editor-foot { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; font-family: var(--mono); font-size: 12px; color: var(--ink3); padding-top: 6px; border-top: 1px solid var(--hair); }
+
+.panel { border-left: 2px solid var(--line); background: var(--surface); overflow: auto; min-height: 0; display: flex; flex-direction: column; }
+.panel section { padding: 16px 18px; border-bottom: 2px solid var(--line); display: flex; flex-direction: column; gap: 10px; }
+.panel h2 { margin: 0; font-size: 15px; font-weight: 800; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.score { display: flex; align-items: baseline; gap: 6px; }
+.score b { font-family: var(--display); font-weight: 900; font-stretch: 70%; font-size: 64px; line-height: .85; font-variant-numeric: tabular-nums; }
+.meter { height: 14px; border: 2px solid var(--line); background: var(--bg); position: relative; }
+.meter i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent); transition: width .3s ease; }
+.ticks { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; color: var(--ink3); margin-top: 4px; }
+.dx { margin: 0; font-size: 15px; }
+.findings { display: flex; flex-wrap: wrap; gap: 5px; }
+.findings span { font-family: var(--mono); font-size: 11px; padding: 2px 7px; border: 1.5px solid var(--line); background: var(--tint); }
+.findings span.ok { background: var(--bg); }
+.note-hand { font-family: var(--hand); font-size: 22px; line-height: 1.15; color: var(--ink); margin: 0; }
+.fits { display: flex; flex-direction: column; gap: 6px; }
+.fit { display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; align-items: center; font-size: 13.5px; }
+.fit .n { font-family: var(--mono); font-size: 12px; }
+.fit .bar { grid-column: 1 / -1; height: 5px; background: var(--sunk); position: relative; }
+.fit .bar i { position: absolute; left: 0; top: 0; bottom: 0; }
+.fit .warn { grid-column: 1 / -1; font-size: 12px; }
+.pins { display: flex; flex-direction: column; gap: 10px; }
+.pin { position: relative; padding: 10px 34px 10px 12px; color: #201B16; font-size: 13.5px; line-height: 1.4; box-shadow: 0 6px 14px -9px rgba(0,0,0,.6); border: 1.5px solid rgba(17,17,16,.25); }
+.pin button { position: absolute; top: 2px; right: 2px; width: 30px; height: 30px; border: 0; background: transparent; color: #4A3F35; display: flex; align-items: center; justify-content: center; }
+.pin-form { display: flex; gap: 6px; }
+.field { flex: 1 1 auto; min-width: 0; min-height: 40px; padding: 0 10px; border: 2px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; font-size: 14px; }
+.panel-cta { padding: 16px 18px; display: flex; flex-direction: column; gap: 8px; margin-top: auto; position: sticky; bottom: 0; background: var(--surface); border-top: 2px solid var(--line); }
+
+[data-width="wide"] .editor { max-width: 920px; }
+body.hide-count .editor-foot { display: none; }
+body.hide-timer .sprint { display: none; }
+body.hide-prompt .prompt-strip { display: none; }
+.check-sub { font-family: var(--mono); font-size: 11.5px; color: var(--ink3); margin-top: -6px; }
+
+/* Music */
+.music { margin: 0 10px 10px; border: 2px solid var(--line); padding: 8px 12px; background: var(--bg); }
+.music summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; min-height: 32px; }
+.music summary::-webkit-details-marker { display: none; }
+.music[open] summary { margin-bottom: 8px; }
+.music-body { display: flex; flex-direction: column; gap: 8px; padding-bottom: 4px; }
+.moods { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+.moods a { display: flex; align-items: center; justify-content: center; text-align: center; min-height: 36px; padding: 0 6px; border: 1.5px solid var(--line); background: var(--surface); font-size: 12.5px; font-weight: 700; text-decoration: none; color: var(--ink); }
+.moods a:hover { background: var(--tint); }
+.player { margin: 0 10px 10px; }
+.player iframe { width: 100%; border: 0; display: block; border-radius: 12px; }
+
+/* Sprint embers */
+.embers { display: inline-flex; gap: 3px; align-items: center; }
+.embers i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); border: 1.5px solid var(--ink); display: inline-block; }
+
+/* Settings */
+.set-row { display: flex; flex-direction: column; gap: 8px; }
+.tog { display: flex; align-items: center; gap: 10px; min-height: 38px; font-size: 14.5px; cursor: pointer; }
+.tog input { width: 18px; height: 18px; accent-color: var(--accent); }
+
+/* Short versions */
+.variant { margin-top: -10px; padding: 10px 12px; border: 2px solid var(--line); border-top: 0; background: var(--bg); display: flex; flex-direction: column; gap: 6px; }
+.variant textarea { min-height: 84px; border: 2px solid var(--line); background: var(--surface); color: var(--ink); font: inherit; font-size: 14px; line-height: 1.45; padding: 8px 10px; resize: vertical; }
+.variant .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12px; }
+.shorten { align-self: flex-start; margin-top: -6px; }
+
+/* Spark */
+.spark { max-width: 1120px; margin: 0 auto; padding: 32px 32px 48px; display: flex; flex-direction: column; gap: 22px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button { min-height: 36px; padding: 0 12px; border: 2px solid var(--line); background: var(--surface); font-weight: 700; font-size: 13px; }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.spark-card { background: var(--surface); border: 2px solid var(--line); padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.spark-card .q { margin: 0; font-size: 18px; font-weight: 800; line-height: 1.3; flex: 1 1 auto; }
+.spark-card .why { margin: 0; font-size: 13px; color: var(--ink2); }
+.spark-card .meta { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.spark-card .meta .save { margin-left: auto; }
+.save { width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; border: 2px solid var(--line); background: var(--surface); }
+.save[aria-pressed="true"] { background: var(--caution); color: #111110; }
+.save[aria-pressed="true"] svg { fill: currentColor; }
+.example-post { margin: 0; background: #FFFFFF; color: #1D1D1F; border: 1.5px solid var(--line); padding: 12px; font-size: 14.5px; line-height: 1.5; white-space: pre-wrap; flex: 1 1 auto; font-family: -apple-system, 'Segoe UI', Arial, sans-serif; }
+.card-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.spark-feature { background: var(--ink); color: var(--bg); border: 2px solid var(--ink); padding: 22px; display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; justify-content: space-between; box-shadow: 6px 6px 0 var(--accent); }
+.spark-feature .q { margin: 6px 0 0; font-size: 26px; font-weight: 800; line-height: 1.2; max-width: 640px; }
+.spark-feature .label { color: var(--caution); }
+
+/* Drafts */
+.drafts { max-width: 960px; margin: 0 auto; padding: 32px; display: flex; flex-direction: column; gap: 18px; }
+.table { border: 2px solid var(--line); background: var(--surface); }
+.row-d { display: grid; grid-template-columns: minmax(0, 1fr) 130px 140px 120px; gap: 12px; align-items: center; padding: 12px 16px; border-top: 2px solid var(--line); }
+.row-d:first-child { border-top: 0; }
+.row-d.head { font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--ink3); background: var(--bg); }
+.row-d .t { font-weight: 700; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+.row-d .actions { display: flex; gap: 6px; justify-content: flex-end; }
+
+/* Zen */
+body.zen .side, body.zen .panel, body.zen .topbar, body.zen .prompt-strip, body.zen .editor-foot { display: none !important; }
+body.zen .app { grid-template-columns: 1fr; }
+body.zen .write { grid-template-columns: 1fr; }
+body.zen .editor { padding-top: 12vh; max-width: 680px; }
+.zen-dock { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); display: none; align-items: center; gap: 8px; padding: 6px; background: var(--surface); border: 2px solid var(--line); box-shadow: 4px 4px 0 var(--shadow); z-index: 30; }
+body.zen .zen-dock { display: flex; }
+.zen-hint { position: fixed; top: 16px; right: 20px; font-family: var(--mono); font-size: 12px; color: var(--ink3); display: none; }
+body.zen .zen-hint { display: block; }
+
+/* Modals */
+.overlay { position: fixed; inset: 0; background: rgba(17,17,16,.55); display: flex; align-items: center; justify-content: center; padding: 24px; z-index: 50; }
+.modal { width: 100%; max-width: 900px; max-height: calc(100vh - 48px); overflow: auto; background: var(--surface); border: 2px solid var(--line); box-shadow: 8px 8px 0 var(--shadow); display: flex; flex-direction: column; }
+.modal-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 2px solid var(--line); }
+.modal-head h2 { margin: 0; font-size: 18px; font-weight: 800; }
+.modal-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+.modal-col { padding: 18px; display: flex; flex-direction: column; gap: 16px; }
+.modal-col + .modal-col { border-left: 2px solid var(--line); background: var(--bg); }
+.modal-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 18px; border-top: 2px solid var(--line); flex-wrap: wrap; }
+.ch { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 2px solid var(--line); background: var(--surface); cursor: pointer; }
+.ch.off { border-color: var(--hair); background: transparent; }
+.ch input { width: 18px; height: 18px; accent-color: var(--accent); }
+.ch .av { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; border: 2px solid var(--ink); }
+.ch .nm { flex: 1 1 auto; min-width: 0; line-height: 1.25; }
+.ch .nm b { display: block; font-size: 14px; }
+.ch .nm small { font-size: 12px; color: var(--ink3); }
+.seg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 2px solid var(--line); }
+.seg button { min-height: 44px; border: 0; background: var(--surface); font-weight: 700; font-size: 13.5px; padding: 0 6px; }
+.seg button + button { border-left: 2px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.when-note { font-size: 13px; color: var(--ink2); display: flex; flex-direction: column; gap: 8px; }
+.when-note input { min-height: 40px; border: 2px solid var(--line); background: var(--bg); color: var(--ink); padding: 0 10px; font: inherit; font-size: 14px; }
+.preview { background: #FFFFFF; color: #1D1D1F; border: 2px solid var(--line); padding: 16px; display: flex; flex-direction: column; gap: 10px; font-family: -apple-system, 'Segoe UI', Arial, sans-serif; }
+.preview .who { display: flex; gap: 10px; align-items: center; }
+.preview .who span { width: 40px; height: 40px; border-radius: 50%; background: #2B3240; color: #C4D2E6; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; }
+.preview .txt { font-size: 14px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 300px; overflow: auto; }
+.demo-flag { font-family: var(--mono); font-size: 11.5px; background: var(--caution); color: #111110; border: 1.5px solid #111110; padding: 3px 8px; }
+
+.connect { max-width: 560px; }
+.connect .modal-body { display: flex; flex-direction: column; padding: 22px; gap: 16px; }
+.steps { list-style: none; margin: 0; padding: 0; border: 2px solid var(--line); }
+.steps li { display: flex; gap: 14px; padding: 12px 14px; border-top: 2px solid var(--line); }
+.steps li:first-child { border-top: 0; }
+.steps .n { font-family: var(--mono); font-size: 20px; font-weight: 600; color: var(--accent); line-height: 1; }
+
+.filled { position: fixed; inset: 0; z-index: 60; background: var(--accent); color: #111110; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.filled-inner { max-width: 640px; display: flex; flex-direction: column; gap: 20px; }
+.stamp { align-self: flex-start; transform: rotate(-6deg); border: 4px solid #111110; background: #F7F6F1; padding: 8px 18px; font-family: var(--display); font-weight: 900; font-stretch: 70%; font-size: 48px; line-height: .95; text-transform: uppercase; animation: stamp .35s cubic-bezier(.2,1.6,.4,1) both; }
+@keyframes stamp { from { transform: rotate(-6deg) scale(2.2); opacity: 0; } to { transform: rotate(-6deg) scale(1); opacity: 1; } }
+.filled h2 { font-size: clamp(48px, 7vw, 84px); }
+.fx { background: #FFFFFF; border: 2px solid #111110; box-shadow: 6px 6px 0 #111110; }
+.fx div { display: flex; gap: 14px; padding: 10px 14px; border-top: 1px dashed #111110; font-size: 14px; }
+.fx div:first-child { border-top: 0; }
+.fx dt { flex: 0 0 100px; font-family: var(--mono); font-size: 11px; font-weight: 600; text-transform: uppercase; padding-top: 2px; }
+.fx dd { margin: 0; }
+
+.toast { position: fixed; left: 50%; top: 18px; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 16px; font-size: 14px; z-index: 70; border: 2px solid var(--ink); box-shadow: 4px 4px 0 var(--accent); }
+
+@media (max-width: 1100px) {
+  .write { grid-template-columns: minmax(0, 1fr) 290px; }
+  .today { grid-template-columns: 1fr; }
+}
+@media (max-width: 860px) {
+  .app { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
+  .side { border-right: 0; border-bottom: 2px solid var(--line); }
+  .side-drafts, .side-section, .buffer-card, #secondOpinions { display: none; }
+  .nav { flex-direction: row; flex-wrap: wrap; }
+  .write { grid-template-columns: 1fr; height: auto; }
+  .panel { border-left: 0; border-top: 2px solid var(--line); }
+  .editor { padding: 20px 18px 40px; }
+  .modal-body { grid-template-columns: 1fr; }
+  .modal-col + .modal-col { border-left: 0; border-top: 2px solid var(--line); }
+  .row-d { grid-template-columns: minmax(0, 1fr) auto; }
+  .row-d > :nth-child(2), .row-d > :nth-child(3) { display: none; }
+  .today, .spark, .drafts { padding: 20px 16px 40px; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+/* --- Revision: guided start, calmer editor --- */
+[hidden] { display: none !important; }
+.side .sprint { margin: 0 12px 12px; padding: 10px 12px; border: 2px solid var(--line); background: var(--surface); display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.side .sprint .time { font-family: var(--mono); font-weight: 600; }
+.stepper { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.stepper li { font-family: var(--mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; padding: 4px 8px; border: 1.5px solid var(--hair); color: var(--ink3); }
+.stepper li[aria-current="step"] { border-color: var(--line); color: var(--ink); background: var(--tint); font-weight: 600; }
+.stepper li.done { color: var(--ink2); }
+.journey { background: var(--surface); border: 2px solid var(--line); padding: 22px; display: flex; flex-direction: column; gap: 18px; }
+.journey-head { display: flex; flex-direction: column; gap: 6px; }
+.q2 { margin: 0; font-weight: 800; font-size: 20px; line-height: 1.3; }
+.kinds, .angles { display: grid; gap: 10px; }
+.kind { text-align: left; display: flex; flex-direction: column; gap: 4px; padding: 14px 16px; border: 2px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; cursor: pointer; min-height: 56px; }
+.kind b { font-size: 17px; }
+.kind span { font-size: 14px; color: var(--ink2); }
+.kind:hover, .kind[aria-pressed="true"] { background: var(--tint); }
+.journey-form { display: flex; flex-direction: column; gap: 12px; }
+.journey textarea { width: 100%; min-height: 120px; padding: 12px; border: 2px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; font-size: 17px; resize: vertical; }
+.row-btns { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+.said { margin: 0; padding: 10px 14px; border-left: 4px solid var(--accent); background: var(--sunk); font-style: italic; color: var(--ink2); }
+.said-small { margin: 0; font-size: 14px; color: var(--ink2); }
+.journey-foot { display: flex; flex-wrap: wrap; gap: 14px; border-top: 1px dashed var(--hair); padding-top: 12px; }
+.stack { display: flex; flex-direction: column; gap: 16px; }
+.card-h { margin: 0; font-size: 16px; font-weight: 800; }
+.progress { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.progress div { display: flex; flex-direction: column; gap: 2px; font-size: 13px; color: var(--ink2); }
+.progress b { font-size: 28px; font-weight: 900; color: var(--ink); line-height: 1; }
+.row-acts { display: flex; gap: 8px; flex-wrap: wrap; }
+.checkup-box, .pins-box { border: 2px solid var(--line); background: var(--surface); padding: 12px 14px; }
+.checkup-box summary, .pins-box summary { cursor: pointer; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+.checkup-box > div, .pins-box > .pins, .pins-box > .pin-form { margin-top: 10px; }
+.notes { margin: 4px 0 10px; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; font-size: 15px; }
+.toast-undo { margin-left: 12px; font: inherit; font-weight: 800; background: none; border: 0; border-bottom: 2px solid currentColor; color: inherit; cursor: pointer; padding: 0; }
+.title-input::placeholder { color: var(--ink3); }
+.gate { position: fixed; inset: 0; z-index: 200; background: var(--bg); display: grid; place-items: center; padding: 24px; }
+.gate:not([hidden]) { display: grid; }
+.gate-card { width: min(100%, 460px); background: var(--surface); border: 2px solid var(--line); box-shadow: 8px 8px 0 var(--shadow); padding: 28px; display: flex; flex-direction: column; gap: 16px; }
+.gate-copy { margin: 0; color: var(--ink2); font-size: 17px; line-height: 1.5; }
+.row-d .chip { white-space: normal; line-height: 1.3; }
+.toast { z-index: 300; }
+.tour { position: fixed; inset: 0; z-index: 190; background: color-mix(in srgb, var(--bg) 92%, transparent); display: grid; place-items: center; padding: 24px; }
+.tour:not([hidden]) { display: grid; }
+.tour-card { width: min(100%, 480px); background: var(--surface); border: 2px solid var(--line); box-shadow: 8px 8px 0 var(--shadow); padding: 28px; display: flex; flex-direction: column; gap: 14px; }
+.tour-card .gate-copy { margin: 0; color: var(--ink2); font-size: 17px; line-height: 1.5; min-height: 4.5em; }
+.tour-dots { display: flex; gap: 6px; }
+.tour-dots i { width: 22px; height: 6px; border: 2px solid var(--line); background: transparent; }
+.tour-dots i.on { background: var(--accent); }
+.tour .btn:disabled { opacity: .4; cursor: default; }
+/* --- Phase: UI lockdown + Second Opinions + first-draft nudge --- */
+.side, .side * { min-width: 0; }
+.side-drafts button { min-width: 0; }
+.side-drafts .t { display: block; width: 100%; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.side-drafts .m { display: block; width: 100%; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.topbar { flex-wrap: wrap; row-gap: 8px; }
+.topbar-right { flex-wrap: wrap; }
+.today > *, .write > *, .stack > * { min-width: 0; }
+.panel, .panel * { min-width: 0; }
+.row-d { min-width: 0; }
+.row-d .t { overflow-wrap: anywhere; }
+.nudge { border-color: var(--accent); }
+.soon-card { margin: 0 12px 12px; border: 2px dashed var(--line); background: var(--surface); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.soon-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.soon-ico { width: 24px; height: 24px; flex: 0 0 auto; border: 2px solid var(--line); border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: var(--accent); font-family: Georgia, 'Times New Roman', serif; }
+.soon-title { font-weight: 800; font-size: 14px; }
+.soon-badge { margin-left: auto; font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; background: var(--caution); color: #111110; border: 1.5px solid var(--line); padding: 2px 6px; white-space: nowrap; }
+.soon-card p { margin: 0; font-size: 12.5px; color: var(--ink2); line-height: 1.45; }
+.stuck { border: 2px dashed var(--line); background: var(--bg); }
+.stuck > summary { cursor: pointer; font-weight: 800; padding: 12px 14px; list-style: none; }
+.stuck > summary::-webkit-details-marker { display: none; }
+.stuck > summary::before { content: "+"; color: var(--accent); margin-right: 8px; font-weight: 800; }
+.stuck[open] > summary::before { content: "\2013"; }
+.stuck-body { padding: 0 14px 14px; display: flex; flex-direction: column; gap: 10px; }
+.stuck-body p { margin: 0; font-size: 14.5px; line-height: 1.5; color: var(--ink2); }
+.stuck-body b { color: var(--ink); }
+.ex-input { width: 100%; min-height: 140px; padding: 12px; border: 2px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; font-size: 15px; resize: vertical; }
+#resumeResults:empty { display: none; }
+.ex-results { display: flex; flex-direction: column; gap: 12px; margin-top: 14px; border-top: 2px solid var(--line); padding-top: 14px; }
+.ex-roles { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--ink2); }
+.ex-items { display: flex; flex-direction: column; gap: 6px; }
+.ex-item { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border: 2px solid var(--line); cursor: pointer; font-size: 15px; line-height: 1.4; }
+.ex-item input { flex: 0 0 auto; width: 18px; height: 18px; margin-top: 1px; accent-color: var(--accent); }
+.log-picks { display: flex; flex-direction: column; gap: 8px; }
+.chips2 { display: flex; flex-wrap: wrap; gap: 8px; }
+.pick { text-align: left; max-width: 100%; padding: 8px 12px; border: 2px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; font-size: 13.5px; cursor: pointer; line-height: 1.3; }
+.pick:hover { background: var(--tint); }
+.words-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.words-row div { display: flex; flex-direction: column; gap: 2px; font-size: 13px; color: var(--ink2); }
+.words-row b { font-size: 30px; font-weight: 900; color: var(--ink); line-height: 1; font-variant-numeric: tabular-nums; }
+/* --- Sidebar alignment pass (consistent 12px gutter, no dead gap, logo fits) --- */
+.side { overflow-y: auto; }
+.side-drafts { flex: 0 0 auto; padding: 0 12px 10px; }
+.brand { padding: 16px 12px; gap: 8px; }
+.brand svg { width: 32px; height: 32px; flex: 0 0 auto; }
+.brand-name { white-space: normal; font-size: 16px; line-height: 1.1; }
+.nav { padding: 10px 12px; }
+.side-section { padding: 10px 12px 4px; }
+.side .sprint { margin: 4px 12px 10px; }
+.music { margin: 0 12px 10px; }
+.soon-card { margin: 0 12px 10px; }
+.buffer-card { margin: 0 12px 12px; }
+.feat-row { align-items: flex-start !important; }
+.feat-row span { display: flex; flex-direction: column; gap: 2px; }
+.feat-desc { font-weight: 400; font-size: 12px; color: var(--ink3); }
+.so-card { margin: 0 12px 12px; border: 2px solid var(--line); background: var(--surface); padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.so-head { display: flex; align-items: center; gap: 8px; }
+.so-ico { width: 24px; height: 24px; flex: 0 0 auto; border: 2px solid var(--line); border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: var(--accent); font-family: Georgia, 'Times New Roman', serif; }
+.so-title { font-weight: 800; font-size: 14px; }
+.so-card > p { margin: 0; font-size: 12.5px; color: var(--ink2); line-height: 1.45; }
+.so-list { margin: 0; padding-left: 16px; display: flex; flex-direction: column; gap: 3px; font-size: 13px; }
+.so-list span { color: var(--ink3); font-family: var(--mono); font-size: 11px; }
+.ref-form { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; border-top: 2px solid var(--line); padding-top: 12px; }
+.ref-form input { min-height: 44px; padding: 0 12px; border: 2px solid var(--line); background: var(--bg); color: var(--ink); font: inherit; font-size: 15px; }
+.ref-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.ref-list li { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; padding: 10px 0; border-top: 1px solid var(--hair); }
+.ref-list li:first-child { border-top: 0; }
+.ref-list .grow { min-width: 0; }
+.ref-note { font-size: 13px; color: var(--ink2); margin-top: 2px; }
+.sprint-live { display: inline-flex; align-items: center; gap: 8px; }
+.sprint-live #sprintTime { font-weight: 600; }
+
+/* v12 polish: independent collapsible navigation, readable controls, mobile drawer */
+.app { transition: grid-template-columns .18s ease; }
+body.side-collapsed .app { grid-template-columns: 68px minmax(0,1fr); }
+.brand { position: relative; }
+.side-toggle { margin-left:auto; flex:0 0 auto; padding:6px; background:transparent; border:1px solid var(--line); color:var(--ink); cursor:pointer; border-radius:6px; }
+.side-toggle:hover, .side-utility:hover { background:var(--bg); }
+.side-utility { width:calc(100% - 24px); text-align:left; padding:11px 12px; margin:2px 12px; border:0; background:transparent; color:var(--ink); font:inherit; font-weight:700; cursor:pointer; display:flex; gap:10px; align-items:center; }
+.side-utility svg { flex:0 0 18px; }
+body.side-collapsed .side { overflow-x:hidden; }
+body.side-collapsed .brand-name,body.side-collapsed .nav button .nav-label,body.side-collapsed .side-section,body.side-collapsed .side-drafts,body.side-collapsed .music,body.side-collapsed .player,body.side-collapsed .buffer-card,body.side-collapsed .utility-label { display:none!important; }
+body.side-collapsed .brand { padding:14px 8px; flex-direction:column; gap:8px; }
+body.side-collapsed .side-toggle { margin:0; }
+body.side-collapsed .nav { padding:10px 7px; }
+body.side-collapsed .nav button { justify-content:center; padding:12px 7px; font-size:0; }
+body.side-collapsed .nav button svg { flex-shrink:0; }
+body.side-collapsed .nav .count { display:none; }
+body.side-collapsed .side-utility { justify-content:center; width:calc(100% - 14px); margin:3px 7px; }
+body.side-collapsed .side-utility svg { flex-shrink:0; }
+.side-tools { margin-top:auto; padding:12px 0; border-top:1px solid var(--line); }
+.nav button { gap:10px; }
+.prompt-strip .prompt-dismiss { margin-left:auto; flex-shrink:0; border:0; background:transparent; color:var(--ink2); cursor:pointer; font-size:22px; line-height:1; padding:0 3px; }
+.resume-file { padding:16px; border:2px dashed var(--line); background:var(--surface); display:flex; flex-direction:column; gap:8px; }
+.resume-file input { max-width:100%; font:inherit; font-size:13px; }
+.import-status { font-size:13px; color:var(--ink2); }
+@media(max-width:860px) {
+ .app,body.side-collapsed .app { display:block; }
+ .side { position:fixed; top:0;bottom:0;left:0;z-index:80;width:270px; max-width:85vw; box-shadow:6px 0 28px #0002; transform:translateX(-105%); transition:transform .18s ease; border-right:2px solid var(--line); border-bottom:0; }
+ body.mobile-menu-open .side { transform:translateX(0); }
+ body.side-collapsed .brand-name,body.side-collapsed .nav button .nav-label,body.side-collapsed .side-section,body.side-collapsed .side-drafts,body.side-collapsed .music,body.side-collapsed .buffer-card,body.side-collapsed .utility-label { display:initial!important; }
+ body.side-collapsed .brand { flex-direction:row; }
+ body.side-collapsed .nav button { justify-content:flex-start; font-size:inherit; }
+ .nav { flex-direction:column; flex-wrap:nowrap; }
+ .topbar { padding-left:48px; }
+ .mobile-menu-trigger { display:block!important; }
+ .mobile-shade { display:none; position:fixed; inset:0; z-index:79; background:#0007; }
+ body.mobile-menu-open .mobile-shade { display:block; }
+}
+.mobile-shade { display:none; }
+.mobile-menu-trigger { display:none; position:fixed; top:12px;left:8px;z-index:60;border:1px solid var(--line);background:var(--surface);padding:9px;color:var(--ink);cursor:pointer; }
+.set-tools { display: flex; flex-wrap: wrap; gap: 8px; }
+.restore-btn { cursor: pointer; }
+.settings-theme button[aria-pressed="true"] span { outline: 2px solid var(--accent); outline-offset: 2px; }
+</style>
+</head>
+<body data-theme="clinic" data-font="sans">
+
+<div class="app">
+  <aside class="side" aria-label="Sidebar">
+    <div class="brand">
+      <svg width="42" height="42" viewBox="0 0 64 64" aria-hidden="true"><path d="M15 41 L8 55 L26 44 Z" fill="#FF6A1F" stroke="#111110" stroke-width="3" stroke-linejoin="round"></path><rect x="4" y="15" width="56" height="30" rx="15" fill="#FFFFFF"></rect><path d="M19 15 H32 V45 H19 A15 15 0 0 1 19 15 Z" fill="#FF6A1F"></path><path d="M32 15 V45" stroke="#111110" stroke-width="3"></path><rect x="4" y="15" width="56" height="30" rx="15" fill="none" stroke="#111110" stroke-width="3"></rect></svg>
+      <span class="brand-name">Take With Words</span><button type="button" class="side-toggle" data-act="toggle-side" title="Collapse or expand sidebar" aria-label="Collapse or expand sidebar" aria-expanded="true">☰</button>
+    </div>
+    <nav class="nav" aria-label="Main">
+      <button type="button" data-view="today"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="8" rx="4"></rect><path d="M12 8v8"></path></svg><span class="nav-label">Today</span></button>
+      <button type="button" data-view="write"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg><span class="nav-label">Write</span></button>
+      <button type="button" data-view="spark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"></path></svg><span class="nav-label">Prompts</span></button>
+      <button type="button" data-act="references" title="Second Opinions" aria-label="Second Opinions"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 19v-4a4 4 0 0 1 4-4h12"/><path d="m16 7 4 4-4 4"/><path d="M4 6h9"/></svg><span class="nav-label">Second Opinions</span></button>
+      <button type="button" data-view="drafts"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"></path><path d="M8 9h8M8 13h8M8 17h5"></path></svg><span class="nav-label">Drafts</span><span class="count" id="draftCount"></span></button>
+    </nav>
+    <div class="side-section"><span class="label">Recent drafts</span></div>
+    <div class="side-drafts" id="sideDrafts"></div>
+        <details class="music" id="musicBox">
+      <summary><span style="display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 14px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>Music</span><span class="label">Optional</span></summary>
+      <div class="music-body" id="musicBody"></div>
+    </details>
+    <div class="player" id="player" hidden></div>
+    <div class="buffer-card" id="bufferCard"></div>
+  </aside>
+
+  <button type="button" class="mobile-menu-trigger" data-act="mobile-menu" aria-label="Open navigation">☰</button><div class="mobile-shade" data-act="close-mobile"></div>
+  <div class="main">
+    <header class="topbar" id="topbar">
+      <div class="topbar-left" id="topLeft"></div>
+      <div class="topbar-right">
+        <button type="button" class="icon-btn" data-act="settings" aria-label="Settings" title="Settings"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"></path><circle cx="15" cy="6" r="2"></circle><circle cx="9" cy="12" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></button>
+      </div>
+    </header>
+    <div class="view" id="view"></div>
+  </div>
+</div>
+
+<div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateH" hidden>
+  <div class="gate-card">
+    <span class="label" style="color: var(--accent);">Sign in</span>
+    <h1 id="gateH" class="display" style="font-size: 44px; margin: 0;">Sign in with Buffer to start.</h1>
+    <p class="gate-copy">Buffer handles sign-in and posting. Your drafts stay on this device, and nothing goes out until you press post.</p>
+    <button type="button" class="btn btn-rx" id="gateBtn" style="min-height: 52px; font-size: 17px;">Sign in with Buffer</button>
+    <p class="mono" id="gateNote" role="status" style="font-size: 13px; color: var(--bad); margin: 0; min-height: 1.2em;"></p>
+    <p class="mono" style="font-size: 12px; color: var(--ink3); margin: 0;">We only ask Buffer for permission to read your channels and create posts.</p>
+  </div>
+</div>
+<div class="tour" id="tour" role="dialog" aria-modal="true" aria-labelledby="tourH" hidden>
+  <div class="tour-card">
+    <div class="tour-dots" id="tourDots" aria-hidden="true"></div>
+    <span class="label" id="tourKicker" style="color: var(--accent);"></span>
+    <h2 id="tourH" class="display" style="font-size: 40px; margin: 0; line-height: .95;"></h2>
+    <p id="tourBody" class="gate-copy"></p>
+    <div class="row-btns" style="margin-top: 6px;">
+      <button type="button" class="link-btn" data-tour="skip">Skip</button>
+      <span style="display: flex; gap: 10px;">
+        <button type="button" class="btn" data-tour="back" id="tourBack">Back</button>
+        <button type="button" class="btn btn-rx" data-tour="next" id="tourNext">Next</button>
+      </span>
+    </div>
+  </div>
+</div>
+<div class="zen-hint"><span class="kbd">Esc</span> to bring everything back</div>
+<div class="zen-dock" role="toolbar" aria-label="Zen controls">
+  <span class="mono" id="zenTime" style="font-size: 14px; font-weight: 600; padding: 0 8px;">25:00</span>
+  <span class="mono" id="zenWords" style="font-size: 12px; color: var(--ink3); padding: 0 8px;">0 words</span>
+  <button type="button" class="btn btn-sm" id="zenExit">Exit Zen</button>
+</div>
+
+<div id="modalRoot"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.9.0/mammoth.browser.min.js" defer></script>
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- Content ---------- */
+  var PROMPTS = [
+    { id: 'p1', cat: 'Lessons', q: 'What did you build this week, and what broke along the way?', tip: 'Two or three honest sentences is a full dose. The broken part is the interesting part.', fits: 'LinkedIn' },
+    { id: 'p2', cat: 'Lessons', q: 'What did you figure out recently that took way too long?', tip: 'Start with how long it took. People love a good waste of time.', fits: 'Threads' },
+    { id: 'p3', cat: 'Lessons', q: 'What is a mistake you made this month that taught you something?', tip: 'Name the mistake in the first line. Then the lesson in one more.', fits: 'LinkedIn' },
+    { id: 'p4', cat: 'Behind the scenes', q: 'Describe the messiest part of a project that turned out well.', tip: 'The mess is the story. The good ending is the payoff.', fits: 'LinkedIn' },
+    { id: 'p5', cat: 'Behind the scenes', q: 'What are you working on right now that is not finished yet?', tip: 'Unfinished is fine. It gives people a reason to follow along.', fits: 'Threads' },
+    { id: 'p6', cat: 'Behind the scenes', q: 'Show a before and after of something you made better.', tip: 'Describe the before so clearly that the after needs one sentence.', fits: 'LinkedIn' },
+    { id: 'p7', cat: 'Hot take', q: 'One piece of common advice in your field that you think is wrong. One sentence why.', tip: 'Keep it short. Hot takes cool off fast when they ramble.', fits: 'Bluesky' },
+    { id: 'p8', cat: 'Hot take', q: 'What is something you changed your mind about this year, and what changed it?', tip: 'The "what changed it" part is what makes this worth reading.', fits: 'LinkedIn' },
+    { id: 'p9', cat: 'Tools', q: 'What is a tool in your stack you would defend in a fight?', tip: 'Say what it replaced and what you would miss without it.', fits: 'Threads' },
+    { id: 'p10', cat: 'Tools', q: 'What is a tool you stopped using, and what did you replace it with? Nothing counts.', tip: '"Nothing" is often the most interesting answer.', fits: 'Bluesky' },
+    { id: 'p11', cat: 'Wins', q: 'What did you ship that nobody noticed? Notice it for them.', tip: 'Small wins count. Say who it helped.', fits: 'LinkedIn' },
+    { id: 'p12', cat: 'Wins', q: 'Who helped you this month, and what did they do?', tip: 'Giving credit is the least cringe post there is.', fits: 'LinkedIn' },
+    { id: 'p13', cat: 'Explain it', q: 'Explain your job to someone who has never had it, in three sentences.', tip: 'Pretend you are explaining it at a family dinner.', fits: 'Threads' },
+    { id: 'p14', cat: 'Explain it', q: 'What is one thing people always get wrong about what you do?', tip: 'Correct it kindly. One example beats three paragraphs.', fits: 'LinkedIn' },
+    { id: 'p15', cat: 'Career stories', q: 'What is something you became unexpectedly good at?', tip: 'Show the moment you realized you could do it.', fits: 'LinkedIn' },
+    { id: 'p16', cat: 'Career stories', q: 'Which responsibility taught you the most, even though it was not in your job description?', tip: 'Tell us what changed when you stepped up.', fits: 'LinkedIn' },
+    { id: 'p17', cat: 'Career stories', q: 'What would a former teammate say you always showed up for?', tip: 'One small example beats a list of traits.', fits: 'LinkedIn' },
+    { id: 'p18', cat: 'Career stories', q: 'What is a skill your résumé does not do justice to?', tip: 'Describe it in action, not as a label.', fits: 'LinkedIn' },
+    { id: 'p19', cat: 'Career stories', q: 'What was your first big lesson in your field?', tip: 'Start with what you believed before.', fits: 'LinkedIn' },
+    { id: 'p20', cat: 'Career stories', q: 'What did a past role teach you about the work you want to do next?', tip: 'Make it a story, not a job search pitch.', fits: 'LinkedIn' },
+    { id: 'p21', cat: 'Career stories', q: 'Which professional moment would you love to relive and why?', tip: 'Put us in the room for one detail.', fits: 'LinkedIn' },
+    { id: 'p22', cat: 'Career stories', q: 'What advice would you give the person taking over your old job?', tip: 'Say what the handbook never mentioned.', fits: 'LinkedIn' },
+    { id: 'p23', cat: 'Work in progress', q: 'What is one thing you are still figuring out this week?', tip: 'Ask the real question you are working through.', fits: 'LinkedIn' },
+    { id: 'p24', cat: 'Work in progress', q: 'What decision are you weighing on a current project?', tip: 'Explain both options before the choice.', fits: 'LinkedIn' },
+    { id: 'p25', cat: 'Work in progress', q: 'What have you changed halfway through a project?', tip: 'The reason for the change is the story.', fits: 'LinkedIn' },
+    { id: 'p26', cat: 'Work in progress', q: 'What are you experimenting with even though it might not work?', tip: 'Explain what you hope to learn.', fits: 'LinkedIn' },
+    { id: 'p27', cat: 'Work in progress', q: 'What is an unfinished idea you cannot stop thinking about?', tip: 'Share why it matters to you.', fits: 'LinkedIn' },
+    { id: 'p28', cat: 'Work in progress', q: 'What tiny improvement did you make today?', tip: 'Small fixes are worth showing.', fits: 'LinkedIn' },
+    { id: 'p29', cat: 'Lessons', q: 'What did a failed project teach you that a successful one could not?', tip: 'Name the one decision you would make differently.', fits: 'LinkedIn' },
+    { id: 'p30', cat: 'Lessons', q: 'What was the best piece of feedback you initially disagreed with?', tip: 'What changed your mind?', fits: 'LinkedIn' },
+    { id: 'p31', cat: 'Lessons', q: 'What are you more patient with now than you used to be?', tip: 'Connect it to one real experience.', fits: 'LinkedIn' },
+    { id: 'p32', cat: 'Lessons', q: 'What shortcut ended up costing you more time?', tip: 'Give the true cost and your new process.', fits: 'LinkedIn' },
+    { id: 'p33', cat: 'Behind the scenes', q: 'What does your team do that customers never notice?', tip: 'Give the invisible work a spotlight.', fits: 'LinkedIn' },
+    { id: 'p34', cat: 'Behind the scenes', q: 'What happens in the ten minutes before something you create goes live?', tip: 'Show the unseen checklist.', fits: 'LinkedIn' },
+    { id: 'p35', cat: 'Behind the scenes', q: 'What almost went wrong before a project launched?', tip: 'Keep it human and specific.', fits: 'LinkedIn' },
+    { id: 'p36', cat: 'Behind the scenes', q: 'Which small choice made a big difference to the final result?', tip: 'A concrete detail makes it memorable.', fits: 'LinkedIn' },
+    { id: 'p37', cat: 'Wins', q: 'What result are you proud of that had nothing to do with a number?', tip: 'Say who it helped.', fits: 'LinkedIn' },
+    { id: 'p38', cat: 'Wins', q: 'When did you notice your work was getting easier?', tip: 'Growth often looks ordinary.', fits: 'LinkedIn' },
+    { id: 'p39', cat: 'Wins', q: 'What problem did you solve quietly without being asked?', tip: 'Tell us why it mattered.', fits: 'LinkedIn' },
+    { id: 'p40', cat: 'Tools', q: 'What is one part of your process you simplified recently?', tip: 'What stopped being necessary?', fits: 'LinkedIn' },
+    { id: 'p41', cat: 'Explain it', q: 'What is a term in your industry everyone uses but few explain?', tip: 'Explain it like you would to a friend.', fits: 'LinkedIn' },
+    { id: 'p42', cat: 'Hot take', q: 'What is one practice you think deserves more credit?', tip: 'Use an example instead of a rant.', fits: 'LinkedIn' }
+  ];
+  var EXAMPLES = [
+    { id: 'e1', fits: 'LinkedIn', prompt: 'p6', text: 'I used to present three design options to clients. Now I present one, and explain the two I threw away.\n\nClients trust the reasoning more than the choice.', why: 'A clear before and after in two sentences.' },
+    { id: 'e2', fits: 'Threads', prompt: 'p2', text: 'Took me four hours to find a bug that was one missing await. The fix took ten seconds. The walk around the block is what actually solved it.', why: 'One specific moment. The wasted time is the hook.' },
+    { id: 'e3', fits: 'Bluesky', prompt: 'p7', text: '"Post every day" is bad advice. Post when you have something you would tell a friend about.', why: 'A hot take with the reason in the same breath, well under 300 characters.' },
+    { id: 'e4', fits: 'LinkedIn', prompt: 'p12', text: 'Our support lead flagged a ticket that started with "this is probably dumb, but..." It became our most-used feature.\n\nCredit to her for reading past the first line.', why: 'Gives credit to someone specific. All story, zero bragging.' },
+    { id: 'e5', fits: 'Threads', prompt: 'p5', text: 'Halfway through rebuilding our onboarding. The old version had 9 steps. We are at 4 and I think it can be 3. Will report back.', why: 'Unfinished work gives people a reason to follow along.' }
+  ];
+  var KINDS = [
+    { id: 'did', label: 'Something I did', hint: 'Something you built, fixed, finished or helped with.', q: 'What did you do recently that took more effort than it looked like?', ex: 'Rebuilt the intake form after three rounds of feedback.' },
+    { id: 'learned', label: 'Something I learned', hint: 'Something you figured out, or wish someone had told you.', q: 'What did you learn lately that you wish you had known sooner?', ex: 'Reading the raw logs first saved a week of guessing.' },
+    { id: 'noticed', label: 'Something I noticed', hint: 'Something you saw that most people would walk right past.', q: 'What did you notice at work that most people would miss?', ex: 'Our tickets always spike the Monday after a Friday release.' }
+  ];
+  var ANGLES = [
+    { id: 'surprise', label: 'The surprise', q: 'What did you expect to happen, and what actually happened?', tip: 'The gap between the two is usually the story.' },
+    { id: 'cost', label: 'The cost', q: 'What did it take? Time, money, a bad afternoon, a favor you owed?', tip: 'Honest costs make people trust the win.' },
+    { id: 'lesson', label: 'The lesson', q: 'What would you tell someone about to do this for the first time?', tip: 'One lesson in one sentence. Then stop.' }
+  ];
+  var MOODS = [['Focus instrumentals', 'focus instrumental'], ['Ambient', 'ambient focus'], ['Lo-fi', 'lofi beats'], ['Nature sounds', 'nature sounds']];
+  var CHANNELS = [
+    { id: 'linkedin', name: 'LinkedIn', limit: 3000, av: 'in', avBg: '#C9DAF0' },
+    { id: 'threads', name: 'Threads', limit: 500, av: '@', avBg: '#E2E2E2' },
+    { id: 'bluesky', name: 'Bluesky', limit: 300, av: 'b', avBg: '#BFD8F5' }
+  ];
+  var PIN_COLORS = ['#EDCB82', '#E8B0A2', '#BFD3A9', '#ADC7E0', '#CDBCE0'];
+  var PHRASES = [
+    ['humbled', 'Humbled'], ['thrilled to', 'Thrilled to'], ['excited to announce', 'Excited to announce'],
+    ['proud to share', 'Proud to share'], ['journey', '"Journey"'], ['grateful', 'Grateful'],
+    ['agree?', 'Agree?'], ['thoughts?', 'Thoughts?'], ['game changer', 'Game changer'], ['game-changer', 'Game changer'],
+    ['hustle', 'Hustle'], ['10x', '10x'], ['rockstar', 'Rockstar'], ['ninja', 'Ninja'], ['synergy', 'Synergy'],
+    ['unpopular opinion', 'Unpopular opinion'], ['let that sink in', 'Let that sink in'], ['thought leader', 'Thought leader'],
+    ['blessed', 'Blessed'], ['disrupt', 'Disrupt']
+  ];
+
+  /* ---------- State + storage ---------- */
+  var KEY = 'doctors-orders-app-v1';
+  function uid() { return Math.random().toString(36).slice(2, 9); }
+  function todayKey(d) { d = d || new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  var defaults = {
+    view: 'today', theme: 'clinic', activeId: null, doseShift: 0, sparkFilter: 'All', sparkCat: 'Any', saved: [],
+    prefs: { font: 'sans', size: 'm', width: 'narrow', showCount: true, showTimer: true, showPrompt: true },
+    music: { url: '' }, sprints: { day: '', n: 0 },
+    drafts: [], trash: [], angles: 0, journey: null, onboarded: false, bufferNudgeDismissed: false, workLog: [], wordsAllTime: 0, features: {}, references: [],
+    pins: [],
+    buffer: { connected: false, selected: { linkedin: true, threads: true, bluesky: false } },
+    posted: []
+  };
+  var S = clone(defaults);
+  if (localStorage.getItem('tww-side-collapsed') === 'true') document.body.classList.add('side-collapsed');
+  function clone(o) { return JSON.parse(JSON.stringify(o)); }
+  try {
+    var raw = localStorage.getItem(KEY);
+    if (raw) { var saved = JSON.parse(raw); for (var k in defaults) if (saved[k] !== undefined) S[k] = saved[k]; if (saved.font && !saved.prefs) S.prefs.font = saved.font; for (var pk in defaults.prefs) if (S.prefs[pk] === undefined) S.prefs[pk] = defaults.prefs[pk]; }
+  } catch (e) {}
+  S.trash = (S.trash || []).filter(function (x) { return Date.now() - x.at < 30 * 864e5; });
+  var saveTimer = null;
+  function save(now) {
+    clearTimeout(saveTimer);
+    var run = function () { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} setSaved(); };
+    if (now) run(); else saveTimer = setTimeout(run, 350);
+  }
+  function setSaved() { var el = document.getElementById('savedLabel'); if (el) el.innerHTML = '<i></i>Saved'; }
+
+  /* ---------- Helpers ---------- */
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function $(id) { return document.getElementById(id); }
+  function doseIndex() {
+    var start = new Date(2026, 0, 1); var days = Math.floor((new Date() - start) / 864e5);
+    return ((days + S.doseShift) % PROMPTS.length + PROMPTS.length) % PROMPTS.length;
+  }
+  function promptById(id) { for (var i = 0; i < PROMPTS.length; i++) if (PROMPTS[i].id === id) return PROMPTS[i]; return null; }
+  function active() { for (var i = 0; i < S.drafts.length; i++) if (S.drafts[i].id === S.activeId) return S.drafts[i]; return null; }
+  function draftText(d) { return ((d.title ? d.title + '\n\n' : '') + (d.body || '')).trim(); }
+  function postText(d, ch) { var v = d.variants && d.variants[ch]; return (v && v.trim()) ? v.trim() : draftText(d); }
+  function embedUrl(u) {
+    try {
+      var x = new URL(String(u).trim());
+      if (/(^|\.)open\.spotify\.com$/.test(x.hostname)) {
+        var m = x.pathname.match(/\/(playlist|album|track|episode|show)\/([A-Za-z0-9]+)/);
+        if (m) return { src: 'https://open.spotify.com/embed/' + m[1] + '/' + m[2], h: 152, kind: 'Spotify' };
+      }
+      if (x.hostname === 'music.apple.com' && /\/(playlist|album)\//.test(x.pathname)) return { src: 'https://embed.music.apple.com' + x.pathname + x.search, h: 175, kind: 'Apple Music' };
+    } catch (e) {}
+    return null;
+  }
+  function words(t) { var m = t.trim().match(/\S+/g); return m ? m.length : 0; }
+  function ago(ts) {
+    var s = Math.round((Date.now() - ts) / 1000);
+    if (s < 60) return 'just now'; if (s < 3600) return Math.round(s / 60) + 'm ago'; if (s < 86400) return Math.round(s / 3600) + 'h ago';
+    return Math.round(s / 86400) + 'd ago';
+  }
+  function statusChip(d) {
+    var demo = d.demo ? ' · demo' : '';
+    if (d.status === 'posted') return '<span class="chip posted">Sent to Buffer' + demo + '</span>';
+    if (d.status === 'queued') {
+      var late = d.scheduledFor && new Date(d.scheduledFor) < new Date();
+      return '<span class="chip queued">' + (late ? 'Scheduled (check Buffer)' : 'Scheduled') + demo + '</span>';
+    }
+    if (d.status === 'idea') return '<span class="chip idea">In Buffer Ideas' + demo + '</span>';
+    return '<span class="chip">Saved on this device</span>';
+  }
+  function toast(msg, undo) {
+    document.querySelectorAll('.toast').forEach(function (x) { x.remove(); });
+    var t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status');
+    t.appendChild(document.createTextNode(msg));
+    if (undo) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'toast-undo'; b.textContent = 'Undo';
+      b.addEventListener('click', function () { t.remove(); undo(); });
+      t.appendChild(b);
+    }
+    document.body.appendChild(t);
+    setTimeout(function () { t.remove(); }, undo ? 8000 : 3200);
+  }
+  function restoreDraft(id) {
+    var hit = S.trash.filter(function (x) { return x.draft.id === id; })[0]; if (!hit) return;
+    S.trash = S.trash.filter(function (x) { return x.draft.id !== id; });
+    S.drafts.unshift(hit.draft); save(true); renderAll(); toast('Draft restored.');
+  }
+  function startFromJourney() {
+    var j = S.journey; if (!j || !j.angle) { toast('Pick an angle first. Any of the three works.'); return; }
+    var d = { id: uid(), title: '', body: '', promptId: null, journey: { kind: j.kind, memory: j.memory, angle: j.angle }, created: Date.now(), updated: Date.now(), status: 'draft' };
+    S.drafts.unshift(d); S.activeId = d.id; S.journey = null; S.view = 'write'; save(true); renderAll();
+    setTimeout(function () { var b = $('bodyInput'); if (b) b.focus(); }, 30);
+  }
+  function newDraft(promptId) {
+    var d = { id: uid(), title: '', body: '', promptId: promptId || null, created: Date.now(), updated: Date.now(), status: 'draft' };
+    S.drafts.unshift(d); S.activeId = d.id; S.view = 'write'; save(true); renderAll();
+    setTimeout(function () { var b = $('bodyInput'); if (b) b.focus(); }, 30);
+  }
+
+  /* ---------- Checkup: observations and questions, never a score ---------- */
+  function checkup(text) {
+    var t = text.trim(); if (!t) return null;
+    var low = t.toLowerCase(), first = t.split('\n')[0].trim(), notes = [], questions = [];
+    PHRASES.forEach(function (p) {
+      if (notes.length < 3 && low.indexOf(p[0]) !== -1) notes.push('"' + p[1].replace(/"/g, '') + '" shows up. What happened, in your own words?');
+    });
+    var bangs = (t.match(/!/g) || []).length;
+    if (bangs > 2) notes.push(bangs + ' exclamation points. Is that the energy you have, or is the punctuation doing the work?');
+    if (!/\d/.test(t) && t.length > 120) notes.push('No numbers, names or dates yet. One specific detail makes it feel real.');
+    if (first.length > 140) notes.push('The first line runs long. Which one idea would you keep if you could keep only one?');
+    if (/\b(broke|broken|mistake|failed|wrong|bug|stuck)\b/i.test(t)) notes.push('You named something that went wrong. That is often the part people remember.');
+    if (!notes.length) notes.push('Nothing jumped out. Read it aloud once and notice where you slow down.');
+    if (!/\b(I|I'm|I've|my|we|our)\b/.test(t)) questions.push('Where are you in this? Trying "I" can make it sound more like you.');
+    if (t.length < 100) questions.push('What happened right before this?');
+    questions.push('What is the one thing you want a reader to take away?');
+    return { notes: notes, questions: questions.slice(0, 3) };
+  }
+
+  function renderSide() {
+    document.querySelectorAll('.nav button[data-view]').forEach(function (b) {
+      if (b.dataset.view === S.view) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+    });
+    $('draftCount').textContent = S.drafts.length ? S.drafts.length : '';
+    var list = S.drafts.slice(0, 8);
+    $('sideDrafts').innerHTML = list.length ? list.map(function (d) {
+      return '<button type="button" data-open="' + d.id + '"' + (d.id === S.activeId && S.view === 'write' ? ' aria-current="true"' : '') + '><span class="t">' + esc(d.title || (d.body || '').split('\n')[0] || 'Untitled draft') + '</span><span class="m">' + esc(d.status === 'draft' ? 'Draft' : d.status === 'posted' ? 'Posted' : d.status === 'queued' ? 'Scheduled' : 'Buffer draft') + ' · ' + ago(d.updated) + '</span></button>';
+    }).join('') : '<p class="empty" style="padding: 4px 12px;">No drafts yet.</p>';
+    var b = S.buffer;
+    $('bufferCard').innerHTML = b.connected
+      ? '<div class="row"><span class="dot" style="background: var(--good);"></span>Buffer connected</div><p>Posts go out through Buffer when you send them.</p><button type="button" class="link-btn" data-act="disconnect" style="align-self: flex-start;">Disconnect</button>'
+      : '<div class="row"><span class="dot" style="background: var(--caution);"></span>Buffer not connected</div><p>You can write now. Connect Buffer when you\'re ready to post.</p><button type="button" class="btn btn-sm" data-act="connect">Connect Buffer</button>';
+  }
+
+  /* ---------- Topbar ---------- */
+  function renderTop() {
+    var left = $('topLeft');
+    if (S.view === 'write' && active()) {
+      left.innerHTML = '<span class="saved" id="savedLabel"><i></i>Saved on this device</span>' +
+        '<button type="button" class="btn btn-sm btn-ghost" data-act="zen" title="Zen mode">Zen</button>' +
+        '<button type="button" class="btn btn-sm btn-ghost" data-act="pin-sel" title="Highlight text in your draft, then pin it">Pin selection</button>' + sprintControl();
+    } else {
+      var now = new Date();
+      left.innerHTML = '<span class="label" style="color: var(--ink2);">' + now.toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' }) + '</span>';
+    }
+    document.querySelectorAll('.theme-pick button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.theme === S.theme ? 'true' : 'false'); });
+  }
+
+  /* ---------- Views ---------- */
+  function titleOf(d) { return d.title || (d.body || '').split('\n')[0] || 'Untitled draft'; }
+  function progressCard() {
+    var started = S.drafts.length, angles = S.angles || 0;
+    var inBuffer = S.drafts.filter(function (d) { return d.status === 'posted' || d.status === 'queued' || d.status === 'idea'; }).length;
+    return '<section class="card" aria-labelledby="prH"><h2 id="prH" class="card-h">Progress, counted your way</h2>' +
+      '<div class="progress">' +
+        '<div><b>' + angles + '</b><span>angle' + (angles === 1 ? '' : 's') + ' found</span></div>' +
+        '<div><b>' + started + '</b><span>stor' + (started === 1 ? 'y' : 'ies') + ' started</span></div>' +
+        '<div><b>' + inBuffer + '</b><span>sent or saved to Buffer</span></div>' +
+      '</div>' +
+      '<p class="empty">Finding an angle counts. So does a draft you never post.</p></section>';
+  }
+  function journeyCard() {
+    var j = S.journey, stage = (!j || j.step === 'recall') ? 0 : 1, labels = ['Recall', 'Angle', 'Write'];
+    var stepper = '<ol class="stepper" aria-label="Where you are">' + labels.map(function (label, i) {
+      var attr = i === stage ? ' aria-current="step"' : (i < stage ? ' class="done"' : '');
+      return '<li' + attr + '>' + (i + 1) + '. ' + label + '</li>';
+    }).join('') + '</ol>';
+    var body;
+    if (!j) {
+      body = '<p class="q2">What kind of thing do you want to write about?</p><div class="kinds">' +
+        KINDS.map(function (k) { return '<button type="button" class="kind" data-act="j-kind" data-id="' + k.id + '"><b>' + esc(k.label) + '</b><span>' + esc(k.hint) + '</span></button>'; }).join('') + '</div>';
+    } else if (j.step === 'recall') {
+      var k = KINDS.filter(function (x) { return x.id === j.kind; })[0] || KINDS[0];
+      body = '<form id="recallForm" class="journey-form"><label class="q2" for="recallInput">' + esc(k.q) + '</label>' + logPicks() +
+        '<textarea id="recallInput" placeholder="For example: ' + esc(k.ex) + '">' + esc(j.memory) + '</textarea>' +
+        '<div class="row-btns"><button type="button" class="link-btn" data-act="j-reset">Pick a different kind</button><button type="submit" class="btn btn-rx">Find the angle</button></div>' +
+        '<p class="empty">A few messy sentences is plenty. Nobody reads this but you.</p></form>';
+    } else {
+      var picked = ANGLES.filter(function (a) { return a.id === j.angle; })[0];
+      body = '<p class="q2">You told us:</p><blockquote class="said">' + esc(j.memory) + '</blockquote>' +
+        '<p class="q2">Pick an angle. Not sure? Pick the one that makes you wince.</p>' +
+        '<div class="angles">' + ANGLES.map(function (a) {
+          return '<button type="button" class="kind" data-act="j-angle" data-id="' + a.id + '" aria-pressed="' + (j.angle === a.id) + '"><b>' + esc(a.label) + '</b><span>' + esc(a.q) + '</span></button>';
+        }).join('') + '</div>' +
+        (picked ? '<p class="said-small">' + esc(picked.tip) + '</p>' : '') +
+        '<div class="row-btns"><button type="button" class="link-btn" data-act="j-back">Back</button><button type="button" class="btn btn-rx" data-act="j-write"' + (picked ? '' : ' disabled') + '>Write it</button></div>';
+    }
+    return '<div class="journey-head"><span class="label" style="color: var(--accent);">Guided start</span>' +
+      '<h2 id="jH" class="display" style="font-size: 40px; margin: 0;">Find something to write about</h2>' +
+      '<p class="empty" style="color: var(--ink2); font-size: 16px;">Recall something, find the angle, then write it in your own words. Saving it privately is always an option.</p></div>' +
+      stepper + body + '<details class="stuck"><summary>Feeling stuck? That\'s normal.</summary><div class="stuck-body"><p><b>\'Nothing I do is interesting.\'</b> The small stuff counts — a decision you made, a mistake you fixed, something that took longer than it should have.</p><p><b>\'This sounds like bragging.\'</b> You\'re not boasting, you\'re telling a useful story. What would have helped you a year ago?</p><p><b>\'This doesn\'t sound like me.\'</b> Good. It shouldn\'t sound like anyone else. Write it the way you\'d say it to a coworker.</p></div></details>' +
+      '<div class="journey-foot">' + (feat('resume') ? '<button type="button" class="link-btn" data-act="experience">Add your experience</button>' : '') + '<button type="button" class="link-btn" data-act="blank">Write without a prompt</button><button type="button" class="link-btn" data-act="go-spark">Browse prompts and examples</button></div>';
+  }
+  function postNudge() {
+    if (S.buffer.connected || S.bufferNudgeDismissed || !S.drafts.length) return '';
+    return '<section class="card nudge"><h2 class="card-h">Ready to send one out?</h2>' +
+      '<p class="empty" style="color: var(--ink2);">That\'s your first draft. When you want it to actually post, Buffer is the free tool that sends it \u2014 and it walks you through the channels and character limits. You don\'t need it to keep writing.</p>' +
+      '<div class="row-btns"><button type="button" class="link-btn" data-act="nudge-dismiss">Not yet</button><button type="button" class="btn btn-rx" data-act="connect">Set up Buffer</button></div></section>';
+  }
+  function viewToday() {
+    var recent = S.drafts.slice(0, 4);
+    var recentHtml = recent.length
+      ? '<div class="list">' + recent.map(function (d) {
+          return '<div class="list-item"><div class="grow"><div class="t">' + esc(titleOf(d)) + '</div><span class="mono" style="font-size: 11px; color: var(--ink3);">' + ago(d.updated) + '</span></div>' + statusChip(d) + '</div>';
+        }).join('') + '</div>'
+      : '<p class="empty">Nothing yet. Your first draft will show up here.</p>';
+    var buffer = (S.buffer.connected || S.drafts.length) ? '' :
+      '<section class="card" style="border-style: dashed;"><h2 class="card-h">Posting is your call</h2>' +
+      '<p class="empty" style="color: var(--ink2);">Drafts stay on this device. Nothing goes out until you press post.</p>' +
+      '<button type="button" class="btn btn-sm" data-act="connect" style="align-self: flex-start;">Learn about Buffer</button></section>';
+    return '<div class="today">' +
+      '<div class="today-head"><div style="display: flex; flex-direction: column; gap: 8px;"><span class="label" style="color: var(--accent);">' + ((S.onboarded && S.drafts.length) ? 'Welcome back' : 'Take With Words') + '</span><h1 class="display" style="font-size: 50px;">' + ((S.onboarded && S.drafts.length) ? 'Good to see you.' : 'Today') + '</h1><p class="empty" style="color: var(--ink2); font-size: 15px; max-width: 32rem;">No streak to keep, nothing due. Write a little when you feel like it.</p></div></div>' +
+      '<section class="journey" aria-labelledby="jH">' + journeyCard() + '</section>' +
+      '<div class="stack">' + wordsCard() + postNudge() + progressCard() +
+        '<section class="card"><h2 class="card-h">Recent drafts</h2>' + recentHtml + '</section>' + buffer +
+      '</div></div>';
+  }
+  function saveBtn(id) {
+    var on = S.saved.indexOf(id) !== -1;
+    return '<button type="button" class="save" data-save="' + id + '" aria-pressed="' + on + '" aria-label="' + (on ? 'Remove from saved' : 'Save for later') + '" title="' + (on ? 'Saved' : 'Save for later') + '"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"></path></svg></button>';
+  }
+  function promptCard(x) {
+    return '<article class="spark-card"><div class="meta"><span class="chip">' + esc(x.cat) + '</span><span class="chip idea">Good for ' + esc(x.fits) + '</span>' + saveBtn(x.id) + '</div><p class="q">' + esc(x.q) + '</p><p class="why">' + esc(x.tip) + '</p><div class="card-actions"><button type="button" class="btn btn-sm" data-act="start" data-prompt="' + x.id + '">Write this one</button></div></article>';
+  }
+  function exampleCard(x) {
+    return '<article class="spark-card"><div class="meta"><span class="chip" style="background: var(--ink); color: var(--bg); border-color: var(--ink);">Example post</span><span class="chip idea">' + esc(x.fits) + '</span>' + saveBtn(x.id) + '</div><p class="example-post">' + esc(x.text) + '</p><p class="why"><strong>Why it works:</strong> ' + esc(x.why) + '</p><div class="card-actions"><button type="button" class="btn btn-sm" data-act="start" data-prompt="' + x.prompt + '">Write my version</button></div></article>';
+  }
+  function viewSpark() {
+    var p = PROMPTS[doseIndex()], f = S.sparkFilter;
+    var cats = ['Any'].concat(PROMPTS.map(function (x) { return x.cat; }).filter(function (c, i, a) { return a.indexOf(c) === i; }));
+    var prompts = PROMPTS.filter(function (x) { return f === 'Prompts' ? (S.sparkCat === 'Any' || x.cat === S.sparkCat) : f === 'All' || (f === 'Saved' && S.saved.indexOf(x.id) !== -1); });
+    var examples = EXAMPLES.filter(function (x) { return f === 'All' || f === 'Examples' || (f === 'Saved' && S.saved.indexOf(x.id) !== -1); });
+    if (f === 'Examples') prompts = []; if (f === 'Prompts') examples = [];
+    var cards = [];
+    if (f === 'All') { var i = 0, j = 0; while (i < prompts.length || j < examples.length) { if (i < prompts.length) cards.push(promptCard(prompts[i++])); if (i < prompts.length) cards.push(promptCard(prompts[i++])); if (j < examples.length) cards.push(exampleCard(examples[j++])); } }
+    else cards = examples.map(exampleCard).concat(prompts.map(promptCard));
+    return '<div class="spark">' +
+      '<div style="display: flex; flex-direction: column; gap: 6px;"><h1 class="display" style="font-size: 52px;">Prompts &amp; examples</h1><p class="empty" style="color: var(--ink2); font-size: 16px;">Stuck? Pick a prompt, or see how someone else wrote one, then write your version. Human sparks, not 50 AI hooks.</p></div>' +
+      '<section class="spark-feature"><div><span class="label">Today\'s prompt</span><p class="q">' + esc(p.q) + '</p></div><button type="button" class="btn btn-rx" data-act="start" data-prompt="' + p.id + '">Write this one</button></section>' +
+      '<div class="filters" role="group" aria-label="Show">' + ['All', 'Prompts', 'Examples', 'Saved'].map(function (c) { return '<button type="button" data-filter="' + c + '" aria-pressed="' + (c === f) + '">' + c + (c === 'Saved' && S.saved.length ? ' (' + S.saved.length + ')' : '') + '</button>'; }).join('') + '</div>' +
+      (f === 'Prompts' ? '<div class="filters" role="group" aria-label="Prompt type">' + cats.map(function (c) { return '<button type="button" data-cat="' + esc(c) + '" aria-pressed="' + (c === S.sparkCat) + '" style="min-height: 32px; font-size: 12.5px;">' + (c === 'Any' ? 'Any type' : esc(c)) + '</button>'; }).join('') + '</div>' : '') +
+      (cards.length ? '<div class="grid">' + cards.join('') + '</div>' : '<div class="card"><p class="empty">Nothing saved yet. Tap the bookmark on any prompt or example to keep it here.</p></div>') +
+    '</div>';
+  }
+  function viewDrafts() {
+    var rows = S.drafts.map(function (d) {
+      return '<div class="row-d"><span class="t">' + esc(titleOf(d)) + '</span><span>' + statusChip(d) + '</span><span class="mono" style="font-size: 12px; color: var(--ink3);">' + ago(d.updated) + '</span>' +
+        '<span class="row-acts"><button type="button" class="link-btn" data-open="' + d.id + '">Open</button><button type="button" class="link-btn" data-del="' + d.id + '">Delete</button></span></div>';
+    }).join('');
+    var trash = S.trash.length ? '<section class="card"><h2 class="card-h">Deleted drafts</h2><p class="empty">Kept here for 30 days so you can restore them. After that they are gone for good.</p><div class="list">' +
+      S.trash.map(function (x) {
+        return '<div class="list-item"><div class="grow"><div class="t">' + esc(titleOf(x.draft)) + '</div><span class="mono" style="font-size: 11px; color: var(--ink3);">Deleted ' + ago(x.at) + '</span></div><button type="button" class="btn btn-sm" data-restore="' + x.draft.id + '">Restore</button></div>';
+      }).join('') + '</div></section>' : '';
+    return '<div class="drafts">' +
+      '<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; flex-wrap: wrap;"><div><h1 class="display" style="font-size: 52px;">Your drafts</h1><p class="empty" style="color: var(--ink2);">Everything stays on this device until you send it to Buffer.</p></div></div>' +
+      (S.drafts.length ? '<div class="table"><div class="row-d head"><span>Draft</span><span>Status</span><span>Updated</span><span></span></div>' + rows + '</div>'
+        : '<div class="card"><p class="empty">No drafts yet. Start with the guided start on Today.</p><button type="button" class="btn btn-sm" data-act="go-today" style="align-self: flex-start;">Go to Today</button></div>') +
+      trash + '</div>';
+  }
+  function viewWrite() {
+    var d = active();
+    if (!d) { S.view = 'today'; return viewToday(); }
+    var p = promptById(d.promptId), strip = '';
+    if (d.journey && !d.promptDismissed) {
+      var ang = ANGLES.filter(function (a) { return a.id === d.journey.angle; })[0];
+      strip = '<div class="prompt-strip"><span class="label" style="color: var(--accent); padding-top: 2px;">Angle</span><span class="q">' + esc(ang ? ang.q : 'Write it in your own words.') + '</span><button type="button" class="prompt-dismiss" data-act="dismiss-prompt" aria-label="Dismiss angle">×</button></div>' +
+        (d.journey.memory ? '<p class="said-small">You started with: “' + esc(d.journey.memory) + '”</p>' : '');
+    } else if (p && !d.promptDismissed) {
+      strip = '<div class="prompt-strip"><span class="label" style="color: var(--accent); padding-top: 2px;">Prompt</span><span class="q">' + esc(p.q) + '</span><button type="button" class="prompt-dismiss" data-act="dismiss-prompt" title="Dismiss this prompt" aria-label="Dismiss prompt">×</button></div>';
+    }
+    return '<div class="write">' +
+      '<div class="editor-wrap"><div class="editor">' + strip +
+        '<label class="sr" for="titleInput">Title (optional)</label><input class="title-input" id="titleInput" type="text" autocomplete="off" placeholder="Title (optional)" value="' + esc(d.title) + '">' +
+        '<label class="sr" for="bodyInput">Your post</label><textarea class="body-input" id="bodyInput" placeholder="Start typing. Nobody can see this yet.">' + esc(d.body) + '</textarea>' +
+        '<div class="editor-foot" id="editorFoot"></div>' +
+      '</div></div>' +
+      '<aside class="panel" aria-label="Checkup and tools">' +
+        (feat('checkup') ? '<details class="checkup-box" id="checkupBox"><summary>Checkup <span class="label">optional</span></summary><div id="checkup"></div></details>' : '') +
+        '<section class="fits-sec" id="fitsSec" aria-labelledby="fitH"><h2 id="fitH">Fits on</h2><div class="fits" id="fits"></div></section>' +
+        '<details class="pins-box"><summary id="pinH">Pins <span class="label">' + S.pins.length + '</span></summary>' +
+          '<div class="pins" id="pins"></div>' +
+          '<form class="pin-form" id="pinForm"><label class="sr" for="pinInput">New pin</label><input class="field" id="pinInput" maxlength="120" placeholder="Note to self..." autocomplete="off"><button type="submit" class="btn btn-sm">Pin</button></form></details>' +
+        '<div class="panel-cta" id="ctaBox" hidden>' +
+          '<button type="button" class="btn" data-act="save-private" style="min-height: 48px;">Save privately</button>' +
+          '<button type="button" class="btn btn-rx" data-act="fill" style="min-height: 52px; font-size: 17px;">Post with Buffer <span class="kbd">Ctrl ↵</span></button>' +
+          '<span class="mono" style="font-size: 11.5px; color: var(--ink3); text-align: center;">Add to queue, schedule, or save to Buffer</span></div>' +
+      '</aside></div>';
+  }
+  function renderView() {
+    var v = $('view');
+    v.innerHTML = S.view === 'write' ? viewWrite() : S.view === 'spark' ? viewSpark() : S.view === 'drafts' ? viewDrafts() : viewToday();
+    if (S.view === 'today' && !S.onboarded) { v.insertAdjacentHTML('afterbegin', '<div class="card" style="margin:18px 20px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between;"><div><b>Start with your story.</b><p class="empty" style="margin:4px 0 0">Write freely, or take a quick optional tour. Nothing posts automatically.</p></div><div class="row-btns"><button class="btn btn-sm" data-act="tour-dismiss">Start writing</button><button class="btn btn-sm btn-rx" data-act="tour">Take a Tour</button></div></div>'); }
+    if (S.view === 'write') bindEditor();
+  }
+  function applyPrefs() {
+    var p = S.prefs, b = document.body;
+    b.setAttribute('data-theme', S.theme); b.setAttribute('data-font', p.font); b.setAttribute('data-width', p.width);
+    var base = { s: 17, m: 19, l: 22 }[p.size] || 19; if (p.font === 'serif') base += 2;
+    b.style.setProperty('--body-size', base + 'px');
+    b.classList.toggle('hide-count', !p.showCount); b.classList.toggle('hide-timer', !p.showTimer); b.classList.toggle('hide-prompt', !p.showPrompt);
+    var bi = $('bodyInput'); if (bi) autosize(bi);
+  }
+  function renderAll() { applyPrefs(); renderSide(); renderSecondOpinions(); renderTop(); renderView(); applyFeatures(); }
+
+  /* ---------- Editor ---------- */
+  function autosize(t) { t.style.height = 'auto'; t.style.height = Math.max(360, t.scrollHeight + 4) + 'px'; }
+  function bindEditor() {
+    var d = active(), ti = $('titleInput'), bi = $('bodyInput');
+    autosize(bi);
+    function onInput() {
+      d.title = ti.value; d.body = bi.value; d.updated = Date.now();
+      recordWords(words(draftText(d)), d);
+      if (d.status !== 'draft') d.status = 'draft';
+      var sl = $('savedLabel'); if (sl) sl.innerHTML = '<i style="background: var(--hair);"></i>Saving...';
+      autosize(bi); save(); renderPanel(); renderSideLight();
+    }
+    ti.addEventListener('input', onInput); bi.addEventListener('input', onInput);
+    renderPanel(); renderPins();
+    $('pinForm').addEventListener('submit', function (e) {
+      e.preventDefault(); var i = $('pinInput'), t = i.value.trim(); if (!t) return;
+      S.pins.push({ id: uid(), text: t, c: S.pins.length % PIN_COLORS.length }); i.value = ''; save(true); renderPins();
+      $('pinH').querySelector('.label').textContent = S.pins.length;
+    });
+  }
+  var sideTimer = null;
+  function renderSideLight() { clearTimeout(sideTimer); sideTimer = setTimeout(renderSide, 600); }
+  function renderPanel() {
+    var d = active(); if (!d) return;
+    var text = draftText(d), res = checkup(text);
+    var _cu = $('checkup'); if (_cu) _cu.innerHTML = !res
+      ? '<p class="empty">Write a few sentences, then open this for a second read. It asks questions. It doesn\'t score you.</p>'
+      : '<span class="label">What I noticed</span><ul class="notes">' + res.notes.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' +
+        '<span class="label">Questions to consider</span><ul class="notes">' + res.questions.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>';
+    var shown = text ? CH().filter(function (ch) { return S.buffer.selected[ch.id] || postText(d, ch.id).length > ch.limit; }) : [];
+    $('fitsSec').hidden = !shown.length;
+    $('fits').innerHTML = shown.map(function (ch) {
+      var hasV = d.variants && d.variants[ch.id] && d.variants[ch.id].trim(), cn = postText(d, ch.id).length;
+      var pct = Math.min(100, Math.round(cn / ch.limit * 100)), over = cn - ch.limit;
+      var col = over > 0 ? 'var(--bad)' : pct > 85 ? 'var(--warn)' : 'var(--good)';
+      return '<div class="fit"><span>' + ch.name + (hasV ? ' <span class="chip idea" style="font-size: 10px;">Short version</span>' : '') + '</span><span class="n" style="color:' + col + '">' + cn + ' / ' + ch.limit.toLocaleString() + '</span><span class="bar"><i style="width:' + pct + '%; background:' + col + '"></i></span>' +
+        (over > 0 ? '<span class="warn" style="color: var(--bad);">' + over + ' over. You can write a short version when you post.</span>' : '') + '</div>';
+    }).join('');
+    $('ctaBox').hidden = !text;
+    var wc = words(text);
+    $('editorFoot').innerHTML = '<span>' + wc + ' word' + (wc === 1 ? '' : 's') + '</span><span>' + text.length + ' characters</span><span>~' + Math.max(1, Math.round(wc / 3.5)) + ' sec read</span>' + (sessionWords ? '<span>' + sessionWords.toLocaleString() + ' this session</span>' : '');
+    $('zenWords').textContent = wc + ' words';
+  }
+  function renderPins() {
+    var box = $('pins'); if (!box) return;
+    box.innerHTML = S.pins.map(function (p, i) {
+      return '<div class="pin" style="background:' + PIN_COLORS[p.c % PIN_COLORS.length] + '; transform: rotate(' + ([-1, .8, -.5, 1.1][i % 4]) + 'deg);">' + esc(p.text) +
+        '<button type="button" data-unpin="' + p.id + '" aria-label="Remove pin"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></div>';
+    }).join('') || '<p class="empty">No pins. Leave yourself a note.</p>';
+  }
+
+  /* ---------- Zen ---------- */
+  function setZen(on) {
+    if (on && S.view !== 'write') return;
+    document.body.classList.toggle('zen', on);
+    if (on) { var b = $('bodyInput'); if (b) b.focus(); }
+  }
+
+  /* ---------- Sprint (on-demand focus timer) ---------- */
+  var sprint = { total: 25 * 60, left: 25 * 60, timer: null };
+  function fmt(s) { return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0'); }
+  function sprintControl() {
+    if (!feat('sprint')) return '';
+    var running = !!sprint.timer, started = sprint.left < sprint.total;
+    if (!running && !started) return '<button type="button" class="btn btn-sm btn-ghost" data-act="sprint-start" title="Start a 25-minute focus sprint">Start sprint</button>';
+    return '<span class="sprint-live"><span class="mono" id="sprintTime">' + fmt(sprint.left) + '</span>' +
+      '<button type="button" class="btn btn-sm btn-ghost" data-act="sprint-toggle">' + (running ? 'Pause' : 'Resume') + '</button>' +
+      '<button type="button" class="btn btn-sm btn-ghost" data-act="sprint-stop">Stop</button></span>';
+  }
+  function drawSprint() {
+    var tEl = $('sprintTime'); if (tEl) tEl.textContent = fmt(sprint.left);
+    var zEl = $('zenTime'); if (zEl) zEl.textContent = fmt(sprint.left);
+  }
+  function startSprintTimer() {
+    if (sprint.timer) return;
+    sprint.timer = setInterval(function () {
+      sprint.left--;
+      if (sprint.left <= 0) { stopSprintTimer(); sprint.left = sprint.total; toast('Sprint done. Nice focus.'); if (S.view === 'write') renderTop(); }
+      drawSprint();
+    }, 1000);
+  }
+  function stopSprintTimer() { if (sprint.timer) { clearInterval(sprint.timer); sprint.timer = null; } }
+
+  /* ---------- Buffer: connect + fill ---------- */
+  function nextSlot() {
+    var d = new Date(); d.setDate(d.getDate() + 1); d.setHours(9, 15, 0, 0);
+    while (d.getDay() === 0 || d.getDay() === 6) d.setDate(d.getDate() + 1);
+    return { date: d, label: d.toLocaleDateString(undefined, { weekday: 'short' }) + ' ' + d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }) };
+  }
+  var fillState = { mode: 'queue', when: '' };
+  function closeModal() { $('modalRoot').innerHTML = ''; document.removeEventListener('keydown', modalKeys); if (lastFocus) lastFocus.focus(); }
+  var lastFocus = null;
+  function modalKeys(e) { if (e.key === 'Escape') closeModal(); }
+  function openConnect(then) {
+    lastFocus = document.activeElement;
+    $('modalRoot').innerHTML = '<div class="overlay" data-close="1"><div class="modal connect" role="dialog" aria-modal="true" aria-labelledby="cnH">' +
+      '<div class="modal-head"><h2 id="cnH">Connect Buffer to post</h2><button type="button" class="icon-btn" data-close="1" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></div>' +
+      '<div class="modal-body"><span class="chip" style="align-self: flex-start; background: var(--caution); color: #111110; border-color: #111110;">Never heard of Buffer? Normal.</span>' +
+      '<p style="margin: 0; font-size: 16px;">Buffer is a free social media scheduler. Connect your accounts once and it posts for you, right now or at a time you pick. Take With Words is where you write; Buffer is how it gets out the door.</p>' +
+      '<ol class="steps"><li><span class="n">01</span><span><b>Create a free Buffer account</b><br><span style="font-size: 13.5px; color: var(--ink2);">About two minutes.</span></span></li><li><span class="n">02</span><span><b>Connect where you post</b><br><span style="font-size: 13.5px; color: var(--ink2);">LinkedIn, Threads, Bluesky, whatever you use.</span></span></li><li><span class="n">03</span><span><b>Come back and connect it here</b><br><span style="font-size: 13.5px; color: var(--ink2);">Your draft stays saved while you\'re gone.</span></span></li></ol>' +
+      '<p class="mono" style="margin: 0; font-size: 12px; color: var(--ink3);">No copay: Buffer\'s free plan covers up to 3 channels and 10 scheduled posts per channel.</p>' +
+      '<div style="display: flex; flex-wrap: wrap; gap: 10px;"><a class="btn btn-rx" href="https://buffer.com" target="_blank" rel="noopener">Create a free Buffer account</a><button type="button" class="btn" data-act="do-connect">Connect Buffer</button></div>' +
+      '<p class="mono" style="margin: 0; font-size: 11.5px; color: var(--ink3);">Signing in does not post anything. You can post, schedule or save to Buffer after you connect.</p>' +
+      '</div></div></div>';
+    document.addEventListener('keydown', modalKeys);
+    $('modalRoot').querySelector('[data-act="do-connect"]').focus();
+    openConnect.then = then || null;
+  }
+  function openFill() {
+    var d = active(); if (!d) return;
+    var text = draftText(d);
+    if (!text) { toast('Write something first. Even one sentence counts.'); return; }
+    if (!S.buffer.connected) { openConnect(openFill); return; }
+    if (!d.variants) d.variants = {};
+    lastFocus = document.activeElement;
+    var slot = nextSlot();
+    if (!fillState.when) { var t = new Date(slot.date); fillState.when = t.getFullYear() + '-' + String(t.getMonth() + 1).padStart(2, '0') + '-' + String(t.getDate()).padStart(2, '0') + 'T09:15'; }
+    function info(c) { var n = postText(d, c.id).length; return { n: n, over: n - c.limit }; }
+    function summary() {
+      var picked = CH().filter(function (c) { return S.buffer.selected[c.id]; });
+      return { picked: picked, blocked: picked.filter(function (c) { return info(c).over > 0; }) };
+    }
+    function statusText(sm) {
+      return !sm.picked.length ? 'Pick at least one channel' :
+        sm.blocked.length ? sm.blocked.map(function (c) { return c.name; }).join(' and ') + ' can\'t fit this yet. Write a short version or uncheck it.' :
+        sm.picked.length + ' channel' + (sm.picked.length > 1 ? 's' : '') + ': ' + sm.picked.map(function (c) { return c.name + (d.variants[c.id] && d.variants[c.id].trim() ? ' (short version)' : ''); }).join(', ');
+    }
+    function chSmall(c) { var i = info(c); return i.over > 0 ? i.over + ' over the limit' : i.n + ' / ' + c.limit.toLocaleString(); }
+    function body() {
+      var sm = summary(), label = fillState.mode === 'queue' ? 'Add to queue' : fillState.mode === 'schedule' ? 'Schedule it' : 'Save to Buffer';
+      var pv = sm.picked[0] || CH()[0];
+      return '<div class="modal" role="dialog" aria-modal="true" aria-labelledby="flH">' +
+        '<div class="modal-head"><div><h2 id="flH">Post with Buffer</h2><span class="mono" style="font-size: 12px; color: var(--ink3);">Your Buffer</span></div><div style="display: flex; gap: 8px; align-items: center;"><button type="button" class="icon-btn" data-close="1" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></div></div>' +
+        '<div class="modal-body"><div class="modal-col">' +
+          '<div style="display: flex; flex-direction: column; gap: 8px;"><span class="label">Where to</span>' + CH().map(function (c) {
+            var on = !!S.buffer.selected[c.id], i = info(c), hasV = d.variants[c.id] != null;
+            var row = '<label class="ch' + (on ? '' : ' off') + '"><input type="checkbox" data-ch="' + c.id + '"' + (on ? ' checked' : '') + '><span class="av" style="background:' + c.avBg + '; color: #111110;">' + c.av + '</span><span class="nm"><b>' + c.name + '</b><small id="cs-' + c.id + '" style="color:' + (i.over > 0 ? 'var(--bad)' : 'var(--ink3)') + '">' + chSmall(c) + '</small></span></label>';
+            if (on && hasV) row += '<div class="variant"><label class="label" for="var-' + c.id + '">Short version for ' + c.name + '</label><textarea id="var-' + c.id + '" data-variant="' + c.id + '">' + esc(d.variants[c.id]) + '</textarea><div class="row"><span class="mono" id="vc-' + c.id + '">' + i.n + ' / ' + c.limit.toLocaleString() + '</span><button type="button" class="link-btn" data-unshorten="' + c.id + '">Use the full post</button></div></div>';
+            else if (on && i.over > 0) row += '<button type="button" class="btn btn-sm shorten" data-shorten="' + c.id + '">Write a short version for ' + c.name + '</button>';
+            return row;
+          }).join('') + '</div>' +
+          '<div style="display: flex; flex-direction: column; gap: 8px;"><span class="label">When</span><div class="seg" role="group" aria-label="When to post">' +
+            [['queue', 'Add to queue'], ['schedule', 'Schedule'], ['draft', 'Save as draft']].map(function (m) { return '<button type="button" data-mode="' + m[0] + '" aria-pressed="' + (fillState.mode === m[0]) + '">' + m[1] + '</button>'; }).join('') + '</div>' +
+            '<div class="when-note">' + (fillState.mode === 'queue' ? 'Goes out at your next open Buffer time slot, on the channels you picked.' :
+              fillState.mode === 'schedule' ? '<label for="whenInput">Post at</label><input id="whenInput" type="datetime-local" value="' + esc(fillState.when) + '"><span class="mono" style="font-size: 12px; color: var(--ink3);">Next open slot in your queue: ' + esc(slot.label) + '</span>' :
+              'Saves it to your Buffer Ideas so you can post it later. Nothing goes out yet.') + '</div></div>' +
+        '</div><div class="modal-col"><span class="label" id="pvName">Preview · ' + esc(pv.name) + '</span>' +
+          '<div class="preview"><div class="who"><span>You</span><div style="line-height: 1.3;"><div style="font-weight: 700; font-size: 13.5px;">Your name</div><div style="font-size: 11.5px; color: #66645F;">Now</div></div></div><div class="txt" id="pvText">' + esc(postText(d, pv.id)) + '</div></div>' +
+          '<span class="mono" style="font-size: 11.5px; color: var(--ink3);">Previews are approximate. Buffer formats the final post for each channel.</span>' +
+        '</div></div>' +
+        '<div class="modal-foot"><span class="mono" id="fillStatus" style="font-size: 12.5px; color: ' + (sm.blocked.length || !sm.picked.length ? 'var(--bad)' : 'var(--ink2)') + ';">' + esc(statusText(sm)) + '</span>' +
+          '<div style="display: flex; gap: 8px;"><button type="button" class="btn" data-close="1">Keep editing</button><button type="button" class="btn btn-rx" id="sendBtn" data-act="send"' + (!sm.picked.length || sm.blocked.length ? ' disabled' : '') + '>' + label + ' <span class="kbd">Ctrl ↵</span></button></div></div></div>';
+    }
+    function draw() { $('modalRoot').innerHTML = '<div class="overlay" data-close="1">' + body() + '</div>'; }
+    draw();
+    document.addEventListener('keydown', modalKeys);
+    openFill.redraw = function (focusSel) {
+      var f = document.activeElement && document.activeElement.dataset; var keep = f && (f.mode || f.ch);
+      draw();
+      var el = focusSel ? $('modalRoot').querySelector(focusSel) : keep ? $('modalRoot').querySelector(f.mode ? '[data-mode="' + f.mode + '"]' : '[data-ch="' + f.ch + '"]') : null;
+      if (el) { el.focus(); if (el.tagName === 'TEXTAREA') el.setSelectionRange(el.value.length, el.value.length); }
+    };
+    openFill.refresh = function () {
+      CH().forEach(function (c) {
+        var i = info(c), cs = $('cs-' + c.id), vc = $('vc-' + c.id);
+        if (cs) { cs.textContent = chSmall(c); cs.style.color = i.over > 0 ? 'var(--bad)' : 'var(--ink3)'; }
+        if (vc) { vc.textContent = i.n + ' / ' + c.limit.toLocaleString(); vc.style.color = i.over > 0 ? 'var(--bad)' : 'var(--ink2)'; }
+      });
+      var sm = summary(), st = $('fillStatus');
+      st.textContent = statusText(sm); st.style.color = sm.blocked.length || !sm.picked.length ? 'var(--bad)' : 'var(--ink2)';
+      $('sendBtn').disabled = !sm.picked.length || sm.blocked.length > 0;
+      var pv = sm.picked[0] || CH()[0]; $('pvName').textContent = 'Preview · ' + pv.name; $('pvText').textContent = postText(d, pv.id);
+    };
+    var first = $('modalRoot').querySelector('#sendBtn:not([disabled])') || $('modalRoot').querySelector('[data-shorten]') || $('modalRoot').querySelector('[data-close="1"].btn');
+    if (first) first.focus();
+  }
+  function shortStart(d, c) {
+    var paras = draftText(d).split(/\n\s*\n/), first = (d.body || '').split(/\n\s*\n/)[0] || paras[0] || '';
+    return first.trim();
+  }
+  async function doSend() {
+    var d = active(); if (!d) return;
+    var sel = CH().filter(function (c) { return S.buffer.selected[c.id]; });
+    if (!sel.length) return;
+    var mode = fillState.mode;
+    var sendBtn = $('sendBtn'); if (sendBtn) { sendBtn.disabled = true; sendBtn.textContent = 'Sending…'; }
+    var st = $('fillStatus');
+    try {
+      var C = await ensureBufferShared();
+      window.BufferConnection.init({ prefix: C.prefix, clientId: C.clientId, tokenEndpoint: C.tokenEndpoint, refreshSkewMs: 5 * 60 * 1000 });
+      var done = [];
+      for (var i = 0; i < sel.length; i++) {
+        var c = sel[i];
+        var input = { channelId: c.id, text: postText(d, c.id), schedulingType: 'automatic' };
+        if (mode === 'draft') { input.mode = 'addToQueue'; input.saveToDraft = true; }
+        else if (mode === 'schedule') { input.mode = 'customScheduled'; input.dueAt = new Date(fillState.when).toISOString(); }
+        else { input.mode = 'addToQueue'; }
+        await window.BufferAPI.createPost(input);
+        done.push(c.name);
+      }
+      d.status = mode === 'draft' ? 'idea' : 'queued';
+      d.sentTo = done; d.updated = Date.now(); d.demo = false;
+      if (mode === 'schedule') d.scheduledFor = fillState.when;
+      if (mode !== 'draft') { var k = todayKey(); if (S.posted.indexOf(k) === -1) S.posted.push(k); }
+      save(true); closeModal(); setZen(false);
+      showFilled(mode, done);
+    } catch (err) {
+      if (sendBtn) { sendBtn.disabled = false; sendBtn.textContent = 'Try again'; }
+      if (st) { st.textContent = 'Buffer couldn’t send this: ' + (err.message || 'unknown error') + '. Your draft is safe.'; st.style.color = 'var(--bad)'; }
+    }
+  }
+  function showFilled(mode, sel) {
+    var where = sel.join(' and ');
+    var stamp = mode === 'draft' ? 'On file' : mode === 'schedule' ? 'Scheduled' : 'Queued';
+    var h = mode === 'draft' ? 'Saved to Buffer.' : mode === 'schedule' ? 'It\'s scheduled.' : 'It\'s in your Buffer queue.';
+    var p = mode === 'draft' ? 'Saved to your Buffer drafts. Nothing goes out until you send it from Buffer.' :
+            mode === 'schedule' ? 'Buffer will post it to ' + where + ' on ' + new Date(fillState.when).toLocaleString(undefined, { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' }) + '.' :
+            'Buffer will post it to ' + where + ' at your next open time slot. The weird feeling wears off in about 20 minutes.';
+    var el = document.createElement('div'); el.className = 'filled'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-labelledby', 'fdH');
+    el.innerHTML = '<div class="filled-inner"><div class="stamp">' + stamp + '</div><h2 class="display" id="fdH">' + h + '</h2><p style="margin: 0; font-size: 18px; max-width: 520px;">' + esc(p) + '</p>' +
+      '<dl class="fx" style="margin: 0;"><div><dt>Common</dt><dd>Rereading it four times. A like from your mom.</dd></div><div><dt>Less common</dt><dd>Thoughtful replies. A new follower who actually does what you do.</dd></div><div><dt>Rare</dt><dd>A stranger saying "I needed this today."</dd></div></dl>' +
+      '' +
+      '<div style="display: flex; gap: 10px; flex-wrap: wrap;"><button type="button" class="btn btn-ink" data-fd="today">Back to today</button><button type="button" class="btn" data-fd="new" style="background: #F7F6F1; color: #111110; border-color: #111110;">Write another</button></div></div>';
+    document.body.appendChild(el);
+    el.querySelector('[data-fd="today"]').focus();
+    el.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-fd]'); if (!b) return;
+      el.remove();
+      if (b.dataset.fd === 'new') { S.doseShift++; newDraft(PROMPTS[doseIndex()].id); }
+      else { S.view = 'today'; save(true); renderAll(); }
+    });
+  }
+
+  /* ---------- Settings ---------- */
+  function drawSettings(focusSel) {
+    var p = S.prefs;
+    function seg(k, label, opts) {
+      return '<div class="set-row"><span class="label">' + label + '</span><div class="seg" style="grid-template-columns: repeat(' + opts.length + ', minmax(0, 1fr));" role="group" aria-label="' + label + '">' +
+        opts.map(function (o) { return '<button type="button" data-pref="' + k + '" data-val="' + o[0] + '" aria-pressed="' + (p[k] === o[0]) + '">' + o[1] + '</button>'; }).join('') + '</div></div>';
+    }
+    function tog(k, label) { return '<label class="tog"><input type="checkbox" data-toggle="' + k + '"' + (p[k] ? ' checked' : '') + '>' + label + '</label>'; }
+    $('modalRoot').innerHTML = '<div class="overlay" data-close="1"><div class="modal connect" role="dialog" aria-modal="true" aria-labelledby="stH">' +
+      '<div class="modal-head"><h2 id="stH">Settings</h2><button type="button" class="icon-btn" data-close="1" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></div>' +
+      '<div class="modal-body">' +
+        seg('font', 'Writing font', [['sans', 'Sans'], ['serif', 'Serif']]) +
+        seg('size', 'Text size', [['s', 'Small'], ['m', 'Medium'], ['l', 'Large']]) +
+        seg('width', 'Editor width', [['narrow', 'Narrow'], ['wide', 'Wide']]) +
+        '<div class="set-row"><span class="label">Focus</span>' + tog('showPrompt', 'Show the prompt above my draft') + tog('showCount', 'Show word count') + '</div>' +
+        '<div class="set-row"><span class="label">Features</span>' + FEATURES.map(function (f) { return '<label class="tog feat-row"><input type="checkbox" data-feat="' + f.key + '"' + (feat(f.key) ? ' checked' : '') + '><span><b>' + esc(f.label) + '</b><span class="feat-desc">' + esc(f.desc) + '</span></span></label>'; }).join('') + '</div>' + '<p class="mono" style="margin: 0; font-size: 11.5px; color: var(--ink3);">Motion follows your system\'s reduced-motion setting. Everything here is remembered on this device.</p>' +
+      '<div class="set-row"><span class="label">Theme</span><div class="theme-pick settings-theme" role="group" aria-label="Theme">' + '<button type="button" data-theme="clinic" aria-pressed="' + (S.theme === 'clinic') + '" title="Clinic"><span style="background:#F7F6F1"></span></button>' + '<button type="button" data-theme="night" aria-pressed="' + (S.theme === 'night') + '" title="Night shift"><span style="background:#1C1C1A"></span></button>' + '<button type="button" data-theme="scrubs" aria-pressed="' + (S.theme === 'scrubs') + '" title="Scrubs"><span style="background:#BCD9CB"></span></button>' + '</div></div>' + '<div class="set-row"><span class="label">Tools</span><div class="set-tools">' + '<button type="button" class="btn btn-sm" data-act="tour">Take a tour</button>' + '<button type="button" class="btn btn-sm" data-act="experience">Import résumé</button>' + '<button type="button" class="btn btn-sm" data-act="backup">Export backup</button>' + '<label class="btn btn-sm restore-btn">Restore backup<input type="file" id="backupFile" accept=".json,application/json" hidden></label>' + '</div></div>' + '</div></div></div>';
+    var el = focusSel ? $('modalRoot').querySelector(focusSel) : $('modalRoot').querySelector('[data-pref]');
+    if (el) el.focus();
+  }
+  function openSettings() { lastFocus = document.activeElement; drawSettings(); document.addEventListener('keydown', modalKeys); }
+
+  /* ---------- Music ---------- */
+  function renderMusic() {
+    var m = S.music || {};
+    $('musicBody').innerHTML = '<p style="margin: 0; font-size: 12.5px; color: var(--ink2);">Pick a mood, or bring your own playlist. Nothing plays until you press play.</p>' +
+      '<div class="moods">' + MOODS.map(function (x) { return '<a href="https://open.spotify.com/search/' + encodeURIComponent(x[1]) + '" target="_blank" rel="noopener">' + x[0] + '</a>'; }).join('') + '</div>' +
+      (m.url ? '<button type="button" class="link-btn" data-act="music-clear" style="align-self: flex-start;">Remove my playlist</button>'
+             : '<form id="musicForm" class="pin-form"><label class="sr" for="musicInput">Spotify or Apple Music playlist link</label><input class="field" id="musicInput" type="url" placeholder="Paste a playlist link" autocomplete="off"><button class="btn btn-sm" type="submit">Add</button></form>');
+  }
+  function setPlayer() {
+    var m = S.music || {}, e = m.url ? embedUrl(m.url) : null, pl = $('player');
+    pl.innerHTML = e ? '<iframe title="' + e.kind + ' player" src="' + esc(e.src) + '" height="' + e.h + '" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>' : '';
+    pl.hidden = !e;
+  }
+
+  /* ---------- Buffer sign-in (real OAuth). Posting stays off until it is built. ---------- */
+  var POSTING_LIVE = true;
+  var REDIRECT_PROD = 'https://takewithwords.netlify.app/auth/callback.html';
+  function loadScriptOnce(src) {
+    return new Promise(function (resolve, reject) {
+      if (document.querySelector('script[data-src="' + src + '"]')) { resolve(); return; }
+      var s = document.createElement('script'); s.src = src; s.dataset.src = src;
+      s.onload = resolve; s.onerror = function () { reject(new Error('Could not load ' + src)); };
+      document.head.appendChild(s);
+    });
+  }
+  async function ensureBufferShared() {
+    if (!window.TWW_BUFFER) await loadScriptOnce('/js/buffer-config.js');
+    if (!window.BufferConnection) await loadScriptOnce('/js/shared/connection.js');
+    if (!window.BufferOAuth) await loadScriptOnce('/js/shared/oauth.js');
+    if (!window.BufferAPI) await loadScriptOnce('/js/buffer-api.js');
+    if (!window.BufferOAuth || !window.BufferConnection) throw new Error('Buffer sign-in did not load.');
+    return window.TWW_BUFFER;
+  }
+  function hasBufferToken() {
+    try { return !!(localStorage.getItem('twu_buffer_access_token') || localStorage.getItem('twu_buffer_refresh_token')); } catch (e) { return false; }
+  }
+  function disconnectBuffer() {
+    ['twu_buffer_access_token','twu_buffer_refresh_token','twu_buffer_token_type','twu_buffer_token_scope','twu_buffer_token_expires_at','twu_buffer_reconnect_needed'].forEach(function (k) { try { localStorage.removeItem(k); } catch (e) {} });
+    S.buffer.connected = false; S.buffer.channels = []; save(true); renderAll(); toast('Disconnected from Buffer. Your drafts are safe.');
+  }
+  function gateSay(msg) {
+    var n = document.getElementById('gateNote'); if (n) n.textContent = msg;
+    toast(msg);
+  }
+  async function startBufferConnect() {
+    try {
+      var C = await ensureBufferShared();
+      if (!C.clientId) { gateSay('Sign-in is not set up in this build yet. The Buffer client ID is missing from js/buffer-config.js.'); return; }
+      var local = ['localhost', '127.0.0.1'].indexOf(location.hostname) !== -1;
+      var redirectUri = local ? location.origin + '/auth/callback.html' : REDIRECT_PROD;
+      window.BufferConnection.init({ prefix: C.prefix, clientId: C.clientId, tokenEndpoint: C.tokenEndpoint, refreshSkewMs: 5 * 60 * 1000 });
+      await window.BufferOAuth.startAuthorization({ prefix: C.prefix, clientId: C.clientId, redirectUri: redirectUri, scope: C.scope, returnTo: location.href });
+    } catch (err) { gateSay('Could not start Buffer sign-in: ' + (err.message || 'unknown error')); }
+  }
+
+  /* ---------- First-run tour (after sign-in) ---------- */
+  var TOUR = [
+    { k: '01 / Find your story', h: 'You already have something to say.', p: 'Choose a prompt, tell us what you did, or import a résumé to find ideas hiding in your experience.' },
+    { k: '02 / Write without pressure', h: 'Your words. Your pace.', p: 'Drafts save privately on this device. Checkup is optional, and Second Opinions gives you references when you want inspiration.' },
+    { k: '03 / Share when ready', h: 'Nothing goes out on its own.', p: 'Save privately as long as you like. When you choose to share, Buffer lets you pick how and where your post goes.' }
+  ];
+  var tourIdx = 0;
+  function drawTour() {
+    var s = TOUR[tourIdx], last = tourIdx === TOUR.length - 1;
+    $('tourKicker').textContent = s.k;
+    $('tourH').textContent = s.h;
+    $('tourBody').textContent = s.p;
+    $('tourDots').innerHTML = TOUR.map(function (x, i) { return '<i' + (i === tourIdx ? ' class="on"' : '') + '></i>'; }).join('');
+    $('tourBack').disabled = tourIdx === 0;
+    $('tourNext').textContent = last ? 'Start with something I did' : 'Next';
+    $('tourNext').focus();
+  }
+  function showTour() { tourIdx = 0; $('tour').hidden = false; drawTour(); }
+  function endTour() {
+    S.onboarded = true; save(true); $('tour').hidden = true;
+    S.view = 'today'; renderAll();
+  }
+  $('tour').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-tour]'); if (!b) return;
+    var a = b.dataset.tour;
+    if (a === 'skip') endTour();
+    else if (a === 'back') { if (tourIdx > 0) { tourIdx--; drawTour(); } }
+    else if (tourIdx < TOUR.length - 1) { tourIdx++; drawTour(); }
+    else endTour();
+  });
+
+  /* ---------- Résumé parsing (coded, no AI, runs in the browser) ---------- */
+  function classifyItem(t) {
+    var l = t.toLowerCase();
+    if (/\b\d+\s*%|\bincreased|\bgrew\b|\breduced|\bboosted|\bcut\b|\bsaved\b|\bgenerated\b|\bdrove\b/.test(l)) return 'win';
+    if (/\blearned|\brealized|\bfigured out|\btaught\b|\bdiscovered\b/.test(l)) return 'lesson';
+    if (/\bbuilt\b|\blaunched|\bdesigned|\bshipped|\bcreated|\bdeveloped|\bfounded|\bran\b|\borgani[sz]ed/.test(l)) return 'project';
+    return 'item';
+  }
+  function parseResume(text) {
+    function clean(line) {
+      var l = line;
+      l = l.replace(/\b[\w.+-]+@[\w-]+\.[\w.-]+\b/g, ' ');
+      l = l.replace(/\bhttps?:\/\/\S+/gi, ' ');
+      l = l.replace(/\b[\w-]+\.(?:com|org|net|io|co|dev|me|app|ai)\b\/?\S*/gi, ' ');
+      l = l.replace(/\+?[\d][\d\s().\-]{6,}\d/g, function (m) { return m.replace(/\D/g, '').length >= 10 ? ' ' : m; });
+      return l.replace(/\s{2,}/g, ' ').replace(/^[\s|·•\-–]+|[\s|]+$/g, '').trim();
+    }
+    var VERBS = /^(built|led|grew|launched|designed|managed|increased|created|reduced|shipped|wrote|developed|drove|owned|ran|organi[sz]ed|improved|delivered|produced|founded|scaled|optimi[sz]ed|implemented|established|generated|boosted|cut|saved|mentored|trained|analy[sz]ed|coordinated|handled|supported)\b/i;
+    var DATE = /\b(19|20)\d{2}\b|\b(present|current)\b|\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z.]*\s*\d{4}\b/i;
+    var BULLET = /^\s*[•\*–▪·o\-]\s+/;
+    var lines = String(text || '').split(/\r?\n/).map(function (l) { return l.replace(/\t/g, ' '); });
+    var roles = [], items = [], seen = {};
+    lines.forEach(function (raw) {
+      var line = clean(raw);
+      if (line.length < 3) return;
+      var isBullet = BULLET.test(raw);
+      var hasDate = DATE.test(line);
+      if (hasDate && !isBullet && /[—|,@]|\s-\s|\bat\b/.test(line) && line.length < 130) { roles.push({ raw: line }); return; }
+      if (isBullet || VERBS.test(line)) {
+        var t = line.replace(BULLET, '').trim();
+        if (t.length < 8) return;
+        var key = t.toLowerCase().slice(0, 60);
+        if (seen[key]) return; seen[key] = 1;
+        items.push({ text: t, kind: classifyItem(t), source: raw.trim() });
+      }
+    });
+    return { roles: roles.slice(0, 12), items: items.slice(0, 40) };
+  }
+  if (typeof module !== 'undefined' && module.exports) module.exports = { parseResume: parseResume, classifyItem: classifyItem };
+
+  function logPicks() {
+    if (!S.workLog || !S.workLog.length) return '';
+    return '<div class="log-picks"><span class="label">From your experience</span><div class="chips2">' +
+      S.workLog.slice(0, 6).map(function (w, i) {
+        return '<button type="button" class="pick" data-act="log-pick" data-i="' + i + '">' + esc(w.text.length > 64 ? w.text.slice(0, 61) + '…' : w.text) + '</button>';
+      }).join('') + '</div></div>';
+  }
+  function openExperience() {
+    lastFocus = document.activeElement;
+    $('modalRoot').innerHTML = '<div class="overlay" data-close="1"><div class="modal connect" role="dialog" aria-modal="true" aria-labelledby="exH">' +
+      '<div class="modal-head"><h2 id="exH">Add your experience</h2><button type="button" class="icon-btn" data-close="1" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></div>' +
+      '<div class="modal-body">' +
+        '<p style="margin:0;font-size:15px;">Paste your résumé, a LinkedIn summary, or just a few lines about what you’ve done. We’ll pull out things you could write about. Nothing is posted.</p>' +
+        '<label class="resume-file"><b>Import your résumé (PDF, DOCX or TXT)</b><input id="resumeFile" type="file" accept=".pdf,.docx,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain"><span class="import-status" id="importStatus" role="status">Your file is read in this browser. Only story starters you select are saved.</span></label>' +
+        '<textarea id="resumeInput" class="ex-input" placeholder="Paste here, or type a few lines that start with what you did — Built&hellip;, Led&hellip;, Grew&hellip;"></textarea>' +
+        '<p class="mono" style="margin:0;font-size:11.5px;color:var(--ink3);">Stays on this device. Emails, phone numbers and links are stripped out automatically.</p>' +
+        '<button type="button" class="btn btn-rx" data-act="parse-resume">Find things to write about</button>' +
+        '<div id="resumeResults"></div>' +
+      '</div></div></div>';
+    document.addEventListener('keydown', modalKeys);
+    var r = $('resumeInput'); if (r) r.focus();
+  }
+
+  async function importResume(file) {
+    var status = $('importStatus'), input = $('resumeInput');
+    if (!file || !input) return;
+    if (file.size > 8*1024*1024) { status.textContent = 'Please choose a file smaller than 8 MB.'; return; }
+    status.textContent = 'Reading ' + file.name + '…';
+    try {
+      var name = file.name.toLowerCase(), result = '';
+      if (name.endsWith('.txt')) result = await file.text();
+      else if (name.endsWith('.pdf')) {
+        if (!window.pdfjsLib) throw Error('PDF reader could not load. Check your connection or paste the text below.');
+        window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        var doc = await window.pdfjsLib.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise;
+        for (var n=1; n<=doc.numPages; n++) { var page=await doc.getPage(n), content=await page.getTextContent(); result += content.items.map(function(x){return x.str||'';}).join(' ')+'\n'; }
+      } else if (name.endsWith('.docx')) {
+        if (!window.mammoth) throw Error('DOCX reader could not load. Check your connection or paste the text below.');
+        result = (await window.mammoth.extractRawText({arrayBuffer:await file.arrayBuffer()})).value;
+      } else throw Error('Please choose PDF, DOCX or TXT.');
+      if (!result.trim()) throw Error('No selectable text found. Scanned PDFs may need OCR; please paste the text instead.');
+      input.value = result; status.textContent = 'Imported ' + file.name + '. Review and choose “Find things to write about.”';
+      input.focus();
+    } catch(err) { status.textContent = err.message || 'File could not be read.'; }
+  }
+  function exportBackup() {
+    var data = {format:'take-with-words-backup', version:1, exportedAt:new Date().toISOString(), drafts:S.drafts, trash:S.trash, saved:S.saved, workLog:S.workLog, references:S.references, pins:S.pins};
+    var blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+    var url = URL.createObjectURL(blob), a = document.createElement('a'); a.href=url; a.download='take-with-words-backup-'+todayKey()+'.json'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function(){ URL.revokeObjectURL(url); },1000); toast('Backup exported. Keep it somewhere safe.');
+  }
+  document.addEventListener('change', async function(e) { if(e.target.id==='backupFile' && e.target.files[0]) { try { var backup = JSON.parse(await e.target.files[0].text()); if (backup.format !== 'take-with-words-backup' || !Array.isArray(backup.drafts)) throw Error('Not a Take With Words backup.'); if (!confirm('Restore this backup? This will replace drafts and saved references on this device. Export your current data first if you want to keep it.')) return; ['drafts','trash','saved','workLog','references','pins'].forEach(function(k){if(Array.isArray(backup[k])) S[k]=backup[k];}); S.activeId=null; S.view='drafts'; save(true); renderAll(); toast('Backup restored.'); } catch(err){toast(err.message||'Could not restore backup.');} e.target.value=''; return; } if(e.target.id==='resumeFile' && e.target.files[0]) importResume(e.target.files[0]); });
+
+  function renderResumeResults() {
+    var box = $('resumeResults'); if (!box) return;
+    var text = ($('resumeInput') && $('resumeInput').value) || '';
+    var parsed = parseResume(text);
+    renderResumeResults._items = parsed.items;
+    if (!parsed.items.length) {
+      box.innerHTML = '<p class="empty" style="margin-top:12px;">Didn’t spot clear highlights. Try pasting lines that start with what you did — “Built…”, “Led…”, “Grew…” — or just type a few yourself.</p>';
+      return;
+    }
+    box.innerHTML = '<div class="ex-results">' +
+      (parsed.roles.length ? '<span class="label">Roles we spotted</span><ul class="ex-roles">' + parsed.roles.map(function (r) { return '<li>' + esc(r.raw) + '</li>'; }).join('') + '</ul>' : '') +
+      '<span class="label">Pick what’s worth writing about</span>' +
+      '<div class="ex-items">' + parsed.items.map(function (it, i) {
+        return '<label class="ex-item"><input type="checkbox" data-ex="' + i + '" checked><span>' + esc(it.text) + '</span></label>';
+      }).join('') + '</div>' +
+      '<button type="button" class="btn btn-rx" data-act="save-resume">Save to my work log</button></div>';
+  }
+
+  /* ---------- Words written (effort, never a streak or target) ---------- */
+  var sessionWords = 0;
+  function recordWords(cur, d) {
+    if (!d) return;
+    var base = d.counted || 0;
+    if (cur > base) { var delta = cur - base; S.wordsAllTime = (S.wordsAllTime || 0) + delta; sessionWords += delta; d.counted = cur; }
+  }
+  function wordsEquiv(all) {
+    if (all === 0) return 'No target, no streak — just the words you write.';
+    var posts = Math.max(1, Math.round(all / 50));
+    return 'That’s about ' + posts.toLocaleString() + ' short post' + (posts === 1 ? '' : 's') + '’ worth — written, whether or not you ever post them.';
+  }
+  function wordsCard() {
+    if (!feat('words')) return '';
+    var all = S.wordsAllTime || 0;
+    return '<section class="card words"><h2 class="card-h">Words you’ve written</h2>' +
+      '<div class="words-row"><div><b>' + sessionWords.toLocaleString() + '</b><span>this session</span></div>' +
+      '<div><b>' + all.toLocaleString() + '</b><span>all time</span></div></div>' +
+      '<p class="empty" style="color: var(--ink2);">' + wordsEquiv(all) + '</p></section>';
+  }
+
+  function CH() { return (S.buffer.channels && S.buffer.channels.length) ? S.buffer.channels : CHANNELS; }
+  var syncingChannels = false;
+  async function syncChannels() {
+    if (syncingChannels) return; syncingChannels = true;
+    try {
+      var C = await ensureBufferShared();
+      window.BufferConnection.init({ prefix: C.prefix, clientId: C.clientId, tokenEndpoint: C.tokenEndpoint, refreshSkewMs: 5 * 60 * 1000 });
+      var chs = await window.BufferAPI.fetchChannels();
+      if (chs && chs.length) {
+        S.buffer.channels = chs;
+        var valid = {}; chs.forEach(function (c) { valid[c.id] = true; });
+        var keep = S.buffer.selected && Object.keys(S.buffer.selected).some(function (k) { return valid[k]; });
+        if (!keep) { var sel = {}; chs.forEach(function (c, i) { sel[c.id] = i < 3; }); S.buffer.selected = sel; }
+        save(true); if (S.view === 'write' || S.view === 'today') renderAll();
+      }
+    } catch (e) { /* keep default channels; posting surfaces errors */ }
+    finally { syncingChannels = false; }
+  }
+
+  /* ---------- Feature flags — THIS LIST is your control. Flip def, redeploy. ---------- */
+  var FEATURES = [
+    { key: 'resume',         label: 'Add your experience', desc: 'Paste a résumé to pull out things to write about.', def: true },
+    { key: 'checkup',        label: 'Checkup',             desc: 'Optional questions about your draft while you write.', def: true },
+    { key: 'words',          label: 'Words written',       desc: 'Counts the words you write — this session and over time.', def: true },
+    { key: 'sprint',         label: 'Focus sprints',       desc: 'A timer you start for a focused writing session.', def: true },
+    { key: 'music',          label: 'Music',               desc: 'A quiet playlist while you write.', def: true },
+    { key: 'secondOpinions', label: 'Second Opinions',     desc: 'Save writers you admire as references.', def: true }
+  ];
+  function feat(k) {
+    var f = null; for (var i = 0; i < FEATURES.length; i++) if (FEATURES[i].key === k) f = FEATURES[i];
+    var d = f ? f.def : true;
+    return (S.features && S.features[k] != null) ? !!S.features[k] : d;
+  }
+  function applyFeatures() {
+    var m = $('musicBox'); if (m) m.style.display = feat('music') ? '' : 'none';
+    var pl = $('player'); if (pl && !feat('music')) pl.hidden = true;
+  }
+  /* ---------- Second Opinions (saved references) ---------- */
+  function renderSecondOpinions() {
+    var box = $('secondOpinions'); if (!box) return;
+    box.innerHTML = ''; return; // Now accessed from primary navigation
+    if (!feat('secondOpinions')) { box.innerHTML = ''; return; }
+    var refs = S.references || [];
+    box.innerHTML = '<div class="so-card"><div class="so-head"><span class="so-ico" aria-hidden="true">℞</span><span class="so-title">Second Opinions</span></div>' +
+      (refs.length
+        ? '<ul class="so-list">' + refs.slice(0, 4).map(function (r) { return '<li>' + esc(r.name) + (r.handle ? ' <span>' + esc(r.handle) + '</span>' : '') + '</li>'; }).join('') + '</ul>'
+        : '<p>Save writers you admire, so you can see how they found their voice.</p>') +
+      '<button type="button" class="btn btn-sm" data-act="references">' + (refs.length ? 'Manage references' : 'Add a reference') + '</button></div>';
+  }
+  function refListHtml() {
+    var refs = S.references || [];
+    if (!refs.length) return '<p class="empty">No references yet. Add the first one below.</p>';
+    return '<ul class="ref-list">' + refs.map(function (r) {
+      return '<li><div class="grow"><b>' + esc(r.name) + '</b>' + (r.handle ? ' <span class="mono">' + esc(r.handle) + '</span>' : '') + (r.note ? '<div class="ref-note">' + esc(r.note) + '</div>' : '') + '</div><button type="button" class="link-btn" data-ref-remove="' + r.id + '">Remove</button></li>';
+    }).join('') + '</ul>';
+  }
+  function openReferences() {
+    lastFocus = document.activeElement;
+    $('modalRoot').innerHTML = '<div class="overlay" data-close="1"><div class="modal connect" role="dialog" aria-modal="true" aria-labelledby="roH">' +
+      '<div class="modal-head"><h2 id="roH">Second Opinions</h2><button type="button" class="icon-btn" data-close="1" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg></button></div>' +
+      '<div class="modal-body">' +
+        '<p style="margin:0;font-size:15px;">Save writers whose posts you admire. When you’re stuck, a quick look at how someone else does it helps — a second opinion.</p>' +
+        '<div id="refList">' + refListHtml() + '</div>' +
+        '<form id="refForm" class="ref-form"><input id="refName" placeholder="Name (a writer you like)" autocomplete="off" required><input id="refHandle" placeholder="Handle or link (optional)" autocomplete="off"><input id="refNote" placeholder="What you like about how they write (optional)" autocomplete="off"><button type="submit" class="btn btn-rx">Add reference</button></form>' +
+      '</div></div></div>';
+    document.addEventListener('keydown', modalKeys);
+    var n = $('refName'); if (n) n.focus();
+  }
+
+  /* ---------- Events ---------- */
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    var nav = t.closest('.nav button[data-view]'); if (nav) {
+      var v = nav.dataset.view;
+      if (v === 'write' && !active()) { if (S.drafts.length) S.activeId = S.drafts[0].id; else { newDraft(PROMPTS[doseIndex()].id); return; } }
+      S.view = v; document.body.classList.remove('mobile-menu-open'); save(true); renderAll(); return;
+    }
+    var open = t.closest('[data-open]'); if (open) { S.activeId = open.dataset.open; S.view = 'write'; save(true); renderAll(); return; }
+    var del = t.closest('[data-del]'); if (del) {
+      var id = del.dataset.del, gone = S.drafts.filter(function (d) { return d.id === id; })[0];
+      if (gone) {
+        S.drafts = S.drafts.filter(function (d) { return d.id !== id; }); S.trash.unshift({ draft: gone, at: Date.now() });
+        if (S.activeId === id) S.activeId = null;
+        save(true); renderAll(); toast('Draft moved to Deleted drafts.', function () { restoreDraft(id); });
+      }
+      return;
+    }
+    var rest = t.closest('[data-restore]'); if (rest) { restoreDraft(rest.dataset.restore); return; }
+    var rfr = t.closest('[data-ref-remove]'); if (rfr) { S.references = (S.references || []).filter(function (x) { return x.id !== rfr.dataset.refRemove; }); save(true); var rl2 = $('refList'); if (rl2) rl2.innerHTML = refListHtml(); renderSecondOpinions(); return; }
+    var unpin = t.closest('[data-unpin]'); if (unpin) { S.pins = S.pins.filter(function (p) { return p.id !== unpin.dataset.unpin; }); save(true); renderPins(); var l = $('pinH'); if (l) l.querySelector('.label').textContent = S.pins.length; return; }
+    var th = t.closest('.theme-pick button'); if (th) { S.theme = th.dataset.theme; save(true); document.body.setAttribute('data-theme', S.theme); if ($('modalRoot').innerHTML) drawSettings(); else renderTop(); return; }
+    var flt = t.closest('[data-filter]'); if (flt) { S.sparkFilter = flt.dataset.filter; save(true); renderView(); return; }
+    var cat = t.closest('[data-cat]'); if (cat) { S.sparkCat = cat.dataset.cat; save(true); renderView(); return; }
+    var sv = t.closest('[data-save]'); if (sv) {
+      var sid = sv.dataset.save, ix = S.saved.indexOf(sid); if (ix === -1) S.saved.push(sid); else S.saved.splice(ix, 1);
+      save(true); renderView(); var again = document.querySelector('[data-save="' + sid + '"]'); if (again) again.focus(); return;
+    }
+    var pref = t.closest('[data-pref]'); if (pref) { S.prefs[pref.dataset.pref] = pref.dataset.val; save(true); applyPrefs(); drawSettings('[data-pref="' + pref.dataset.pref + '"][data-val="' + pref.dataset.val + '"]'); return; }
+    var sh = t.closest('[data-shorten]'); if (sh) { var dd = active(); dd.variants[sh.dataset.shorten] = shortStart(dd); save(true); openFill.redraw('#var-' + sh.dataset.shorten); return; }
+    var ush = t.closest('[data-unshorten]'); if (ush) { var du = active(); delete du.variants[ush.dataset.unshorten]; save(true); openFill.redraw(); return; }
+    var mode = t.closest('[data-mode]'); if (mode) { fillState.mode = mode.dataset.mode; openFill.redraw(); return; }
+    if (t.closest('[data-close]') && (t.dataset.close || t.closest('button[data-close]'))) {
+      if (t.classList.contains('overlay') || t.closest('button[data-close]')) { closeModal(); return; }
+    }
+    var act = t.closest('[data-act]'); if (!act) return;
+    var a = act.dataset.act;
+    if (a === 'toggle-side') { var collapsed = document.body.classList.toggle('side-collapsed'); localStorage.setItem('tww-side-collapsed', String(collapsed)); act.setAttribute('aria-expanded', String(!collapsed)); }
+    else if (a === 'mobile-menu') document.body.classList.add('mobile-menu-open');
+    else if (a === 'close-mobile') document.body.classList.remove('mobile-menu-open');
+    else if (a === 'tour') { closeModal(); showTour(); }
+    else if (a === 'tour-dismiss') { S.onboarded = true; save(true); renderView(); }
+    else if (a === 'dismiss-prompt') { var draft = active(); if (draft) { draft.promptDismissed = true; save(true); renderView(); } }
+    else if (a === 'backup') exportBackup();
+    else if (a === 'start') newDraft(act.dataset.prompt);
+    else if (a === 'blank') newDraft(null);
+    else if (a === 'shuffle') { S.doseShift++; save(true); renderView(); }
+    else if (a === 'go-today') { S.view = 'today'; renderAll(); }
+    else if (a === 'zen') setZen(true);
+    else if (a === 'settings') openSettings();
+    else if (a === 'pin-sel') {
+      var bi = $('bodyInput'), sel = bi ? bi.value.slice(bi.selectionStart, bi.selectionEnd).trim() : '';
+      if (!sel) { toast('Highlight a line in your draft first, then pin it.'); return; }
+      S.pins.push({ id: uid(), text: sel.length > 160 ? sel.slice(0, 157) + '...' : sel, c: S.pins.length % PIN_COLORS.length }); save(true); renderPins();
+      var ph = $('pinH'); if (ph) ph.querySelector('.label').textContent = S.pins.length; toast('Pinned.');
+    }
+    else if (a === 'music-clear') { S.music = { url: '' }; save(true); renderMusic(); setPlayer(); }
+    else if (a === 'connect') openConnect();
+    else if (a === 'disconnect') disconnectBuffer();
+    else if (a === 'do-connect') startBufferConnect();
+    else if (a === 'fill') openFill();
+    else if (a === 'send') doSend();
+    else if (a === 'j-kind') { S.journey = { step: 'recall', kind: act.dataset.id, memory: '', angle: null, counted: false }; save(true); renderView(); setTimeout(function () { var r = $('recallInput'); if (r) r.focus(); }, 30); }
+    else if (a === 'j-reset') { S.journey = null; save(true); renderView(); }
+    else if (a === 'j-back') { if (S.journey) { S.journey.step = 'recall'; save(true); renderView(); } }
+    else if (a === 'j-angle') { if (S.journey) { if (!S.journey.counted) { S.angles = (S.angles || 0) + 1; S.journey.counted = true; } S.journey.angle = act.dataset.id; save(true); renderView(); } }
+    else if (a === 'j-write') startFromJourney();
+    else if (a === 'save-private') { var sp = active(); if (sp) { sp.updated = Date.now(); save(true); toast('Saved on this device. Nothing was posted.'); } }
+    else if (a === 'go-spark') { S.view = 'spark'; save(true); renderAll(); }
+    else if (a === 'nudge-dismiss') { S.bufferNudgeDismissed = true; save(true); renderView(); }
+    else if (a === 'experience') openExperience();
+    else if (a === 'parse-resume') renderResumeResults();
+    else if (a === 'save-resume') {
+      var items = renderResumeResults._items || [], added = 0;
+      document.querySelectorAll('#resumeResults [data-ex]').forEach(function (cb) {
+        if (!cb.checked) return; var it = items[+cb.dataset.ex]; if (!it) return;
+        var key = it.text.toLowerCase().slice(0, 60);
+        if (!S.workLog.some(function (w) { return w.text.toLowerCase().slice(0, 60) === key; })) { S.workLog.push({ id: uid(), text: it.text, kind: it.kind }); added++; }
+      });
+      save(true); closeModal(); renderAll(); toast(added ? ('Added ' + added + ' to your work log.') : 'Those are already in your work log.');
+    }
+    else if (a === 'log-pick') { var li = +act.dataset.i, lw = S.workLog[li], ri = $('recallInput'); if (lw && ri) { ri.value = lw.text; ri.focus(); ri.setSelectionRange(ri.value.length, ri.value.length); } }
+    else if (a === 'references') openReferences();
+    else if (a === 'sprint-start') { sprint.total = sprint.left = 25 * 60; startSprintTimer(); renderTop(); drawSprint(); }
+    else if (a === 'sprint-toggle') { if (sprint.timer) stopSprintTimer(); else startSprintTimer(); renderTop(); drawSprint(); }
+    else if (a === 'sprint-stop') { stopSprintTimer(); sprint.left = sprint.total; renderTop(); drawSprint(); }
+  });
+  document.addEventListener('submit', function (e) {
+    if (e.target.id === 'recallForm') {
+      e.preventDefault();
+      var m = $('recallInput').value.trim();
+      if (m.length < 3 || !S.journey) { toast('A few words is enough. Messy is fine.'); return; }
+      S.journey.memory = m; S.journey.step = 'angle'; save(true); renderView(); return;
+    }
+    if (e.target.id === 'refForm') {
+      e.preventDefault();
+      var rn = $('refName').value.trim(); if (!rn) return;
+      if (!S.references) S.references = [];
+      S.references.push({ id: uid(), name: rn, handle: $('refHandle').value.trim(), note: $('refNote').value.trim() });
+      save(true); var rl = $('refList'); if (rl) rl.innerHTML = refListHtml(); e.target.reset(); renderSecondOpinions(); var nn = $('refName'); if (nn) nn.focus();
+      return;
+    }
+    if (e.target.id !== 'musicForm') return;
+    e.preventDefault();
+    var v = $('musicInput').value, em = embedUrl(v);
+    if (!em) { toast('That link didn\'t work. Paste a Spotify or Apple Music playlist link.'); return; }
+    S.music = { url: v.trim() }; save(true); renderMusic(); setPlayer(); toast(em.kind + ' playlist added. Press play when you\'re ready.');
+  });
+  document.addEventListener('input', function (e) {
+    var v = e.target.closest && e.target.closest('[data-variant]'); if (!v) return;
+    var d = active(); if (!d) return; d.variants[v.dataset.variant] = v.value; save(); openFill.refresh();
+  });
+  document.addEventListener('change', function (e) {
+    var ft = e.target.closest('[data-feat]'); if (ft) { if (!S.features) S.features = {}; S.features[ft.dataset.feat] = ft.checked; save(true); applyFeatures(); renderAll(); drawSettings(); return; }
+    var tg = e.target.closest('[data-toggle]'); if (tg) { S.prefs[tg.dataset.toggle] = tg.checked; save(true); applyPrefs(); return; }
+    var c = e.target.closest('[data-ch]'); if (c) { S.buffer.selected[c.dataset.ch] = c.checked; save(true); openFill.redraw(); return; }
+    if (e.target.id === 'whenInput') fillState.when = e.target.value;
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && document.body.classList.contains('zen')) { setZen(false); return; }
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+      e.preventDefault();
+      var send = $('modalRoot').querySelector('[data-act="send"]:not([disabled])');
+      if (send) doSend(); else if (S.view === 'write' && !$('modalRoot').innerHTML) openFill();
+    }
+  });
+  $('zenExit').addEventListener('click', function () { setZen(false); });
+
+  S.drafts.forEach(function (d) { if (d.counted == null) d.counted = words(draftText(d)); });
+  S.buffer.connected = hasBufferToken();
+  if (S.buffer.connected) syncChannels();
+  $('gate').hidden = true;
+  $('gateBtn').addEventListener('click', startBufferConnect);
+  var justConnected = /[?&]connected=buffer/.test(location.search);
+  if (justConnected && history.replaceState) history.replaceState(null, '', location.pathname);
+  renderAll(); renderMusic(); setPlayer(); drawSprint();
+  // Tour is explicitly optional; offered on Today and in navigation.
+  if (justConnected) setTimeout(function () { toast('Buffer connected. Signing in does not post anything yet.'); }, 300);
+})();
+</script>
+</body>
+</html>

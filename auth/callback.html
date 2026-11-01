@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Take With Words · Connecting Buffer</title>
+<style>
+:root { --paper:#F7F6F1; --card:#FFFFFF; --ink:#111110; --ink3:#5A5852; --rx:#FF6A1F; --display:'Archivo','Arial Narrow',Arial,sans-serif; --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace; color-scheme: light; }
+* { box-sizing: border-box; }
+body { margin:0; min-height:100vh; display:grid; place-items:center; padding:24px; background:var(--paper); color:var(--ink); font-family:var(--display); }
+.card { width:min(100%,460px); background:var(--card); border:2px solid var(--ink); box-shadow:8px 8px 0 var(--ink); padding:28px; }
+.k { font-family:var(--mono); font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--rx); }
+h1 { margin:10px 0 10px; font-weight:900; font-stretch:70%; font-size:40px; line-height:.95; text-transform:uppercase; }
+p { margin:0; color:var(--ink3); line-height:1.5; font-size:16px; }
+.spin { width:28px; height:28px; border:3px solid var(--ink); border-top-color:var(--rx); border-radius:50%; animation:spin .9s linear infinite; margin-bottom:16px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.btn { display:inline-flex; align-items:center; margin-top:22px; min-height:48px; padding:0 18px; border:2px solid var(--ink); background:var(--rx); color:var(--ink); font:inherit; font-weight:800; text-decoration:none; box-shadow:4px 4px 0 var(--ink); }
+.hidden { display:none !important; }
+@media (prefers-reduced-motion: reduce) { .spin { animation: none; } }
+</style>
+</head>
+<body>
+<main class="card">
+  <div class="spin" id="spin" aria-hidden="true"></div>
+  <span class="k">Buffer sign-in</span>
+  <h1 id="title">Connecting Buffer</h1>
+  <p id="message" role="status">Finishing the sign-in. This only takes a moment.</p>
+  <a class="btn hidden" id="back" href="/app/">Back to Take With Words</a>
+</main>
+<script>
+function $(id) { return document.getElementById(id); }
+function load(src) {
+  return new Promise(function (resolve, reject) {
+    var s = document.createElement('script'); s.src = src;
+    s.onload = resolve; s.onerror = function () { reject(new Error('Could not load ' + src)); };
+    document.head.appendChild(s);
+  });
+}
+function finish(title, message) {
+  $('spin').classList.add('hidden'); $('title').textContent = title; $('message').textContent = message;
+  $('back').classList.remove('hidden');
+}
+function safeReturn(t) {
+  try {
+    var u = new URL(t || '/app/', location.origin);
+    if (u.origin !== location.origin) return '/app/?connected=buffer';
+    u.searchParams.set('connected', 'buffer');
+    return u.pathname + u.search + u.hash;
+  } catch (e) { return '/app/?connected=buffer'; }
+}
+(async function () {
+  try {
+    await load('/js/buffer-config.js');
+    var C = window.TWW_BUFFER;
+    await load('/js/shared/connection.js');
+    await load('/js/shared/oauth.js');
+    window.BufferConnection.init({ prefix: C.prefix, clientId: C.clientId, tokenEndpoint: C.tokenEndpoint, refreshSkewMs: 5 * 60 * 1000 });
+    var r = await window.BufferOAuth.handleCallback({ prefix: C.prefix, tokenEndpoint: C.tokenEndpoint, clientId: C.clientId });
+    if (!r.ok) {
+      finish(r.reason === 'cancelled' ? 'Sign-in cancelled' : 'Buffer did not connect', r.message || 'Please try again.');
+      return;
+    }
+    $('title').textContent = 'Buffer connected';
+    $('message').textContent = 'Taking you back to your drafts…';
+    setTimeout(function () { location.href = safeReturn(r.returnTo); }, 700);
+  } catch (e) {
+    finish('Could not finish connecting', e.message || 'Please try again.');
+  }
+})();
+</script>
+</body>
+</html>
