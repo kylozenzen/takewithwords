@@ -493,6 +493,10 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
 .opinions-page .ref-note { white-space:pre-wrap; }
 .opinions-page .ref-list b { font-size:21px; display:block; }
 .opinions-page header p { max-width:650px; }
+.ideas-page .idea-group { display:flex; flex-direction:column; gap:10px; }
+.ideas-page .idea-group > h2 { margin:8px 0 0; }
+.ideas-page .idea-list p { margin:6px 0 0; white-space:pre-line; }
+.idea-note { margin:0; font-size:15px; color:var(--ink2); white-space:pre-line; }
 .opinions-page #creatorSearch { min-height:46px; width:100%; }
 @media(max-width:800px) { .start-choices { grid-template-columns:1fr; } .opinions-page .ref-list li { flex-wrap:wrap; } .opinions-page .ref-list .grow { flex-basis:100%; } }
 </style>
@@ -509,6 +513,7 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
       <button type="button" data-view="today"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="8" rx="4"></rect><path d="M12 8v8"></path></svg><span class="nav-label">Today</span></button>
       <button type="button" data-view="write"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg><span class="nav-label">Write</span></button>
       <button type="button" data-view="spark"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"></path></svg><span class="nav-label">Prompts</span></button>
+      <button type="button" data-view="ideas" title="Buffer Ideas"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"></path><path d="M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.5 1 2.5h6c0-1 .2-1.7 1-2.5A6 6 0 0 0 12 3z"></path></svg><span class="nav-label">Buffer Ideas</span></button>
       <button type="button" data-view="opinions" title="Second Opinions" aria-label="Second Opinions"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 19v-4a4 4 0 0 1 4-4h12"/><path d="m16 7 4 4-4 4"/><path d="M4 6h9"/></svg><span class="nav-label">Second Opinions</span></button>
       <button type="button" data-view="drafts"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"></path><path d="M8 9h8M8 13h8M8 17h5"></path></svg><span class="nav-label">Drafts</span><span class="count" id="draftCount"></span></button>
     </nav>
@@ -541,7 +546,7 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
     <p class="gate-copy">Buffer handles sign-in and posting. Your drafts stay on this device, and nothing goes out until you press post.</p>
     <button type="button" class="btn btn-rx" id="gateBtn" style="min-height: 52px; font-size: 17px;">Sign in with Buffer</button>
     <p class="mono" id="gateNote" role="status" style="font-size: 13px; color: var(--bad); margin: 0; min-height: 1.2em;"></p>
-    <p class="mono" style="font-size: 12px; color: var(--ink3); margin: 0;">We only ask Buffer for permission to read your channels and create posts.</p>
+    <p class="mono" style="font-size: 12px; color: var(--ink3); margin: 0;">We only ask Buffer for permission to read your channels and Ideas, and to create posts and ideas.</p>
   </div>
 </div>
 <div class="tour" id="tour" role="dialog" aria-modal="true" aria-labelledby="tourH" hidden>
@@ -953,6 +958,9 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
       var ang = ANGLES.filter(function (a) { return a.id === d.journey.angle; })[0];
       strip = '<div class="prompt-strip"><span class="label" style="color: var(--accent); padding-top: 2px;">Angle</span><span class="q">' + esc(ang ? ang.q : 'Write it in your own words.') + '</span><button type="button" class="prompt-dismiss" data-act="dismiss-prompt" aria-label="Dismiss angle">×</button></div>' +
         (d.journey.memory ? '<p class="said-small">You started with: “' + esc(d.journey.memory) + '”</p>' : '');
+    } else if (d.fromIdea && !d.promptDismissed) {
+      strip = '<div class="prompt-strip"><span class="label" style="color: var(--accent); padding-top: 2px;">Buffer idea</span><span class="q">' + esc(d.fromIdea.title || firstLine(d.fromIdea.text) || 'Untitled idea') + '</span><button type="button" class="prompt-dismiss" data-act="dismiss-prompt" title="Hide this idea" aria-label="Hide Buffer idea">×</button></div>' +
+        (d.fromIdea.text && d.fromIdea.text !== d.fromIdea.title ? '<p class="idea-note">' + esc(clip(d.fromIdea.text, 600)) + '</p>' : '');
     } else if (p && !d.promptDismissed) {
       strip = '<div class="prompt-strip"><span class="label" style="color: var(--accent); padding-top: 2px;">Prompt</span><span class="q">' + esc(p.q) + '</span><button type="button" class="prompt-dismiss" data-act="dismiss-prompt" title="Dismiss this prompt" aria-label="Dismiss prompt">×</button></div>';
     }
@@ -970,15 +978,16 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
           '<form class="pin-form" id="pinForm"><label class="sr" for="pinInput">New pin</label><input class="field" id="pinInput" maxlength="120" placeholder="Note to self..." autocomplete="off"><button type="submit" class="btn btn-sm">Pin</button></form></details>' +
         '<div class="panel-cta" id="ctaBox" hidden>' +
           '<button type="button" class="btn" data-act="save-private" style="min-height: 48px;">Save privately</button>' +
-          '<button type="button" class="btn" data-act="sync-content">Save writing to Buffer</button><span class="empty" id="contentSyncStatus" role="status">' + esc(d.bufferContent ? (d.bufferContent.state === 'posts' ? 'Linked to Buffer posts. Your original stays here.' : 'Writing saved to Buffer. Click to update.') : 'Optional: save without choosing a channel.') + '</span><button type="button" class="btn btn-rx" data-act="fill" style="min-height: 52px; font-size: 17px;">Post with Buffer <span class="kbd">Ctrl ↵</span></button>' +
+          '<button type="button" class="btn" data-act="sync-content">Save writing to Buffer</button><span class="empty" id="contentSyncStatus" role="status">' + esc(d.bufferContent ? (d.bufferContent.state === 'posts' ? 'Linked to Buffer posts. Your original stays here.' : 'Writing saved to Buffer. Click to update.') : 'Optional: save without choosing a channel.') + '</span><button type="button" class="btn" data-act="save-idea">Save as Buffer Idea</button><span class="empty" id="ideaSyncStatus" role="status">' + esc(ideaStatusText(d)) + '</span><button type="button" class="btn btn-rx" data-act="fill" style="min-height: 52px; font-size: 17px;">Post with Buffer <span class="kbd">Ctrl ↵</span></button>' +
           '<span class="mono" style="font-size: 11.5px; color: var(--ink3); text-align: center;">Add to queue, schedule, or save to Buffer</span></div>' +
       '</aside></div>';
   }
   function renderView() {
     var v = $('view');
-    v.innerHTML = S.view === 'develop' ? viewDevelop() : S.view === 'opinions' ? viewOpinions() : S.view === 'write' ? viewWrite() : S.view === 'spark' ? viewSpark() : S.view === 'drafts' ? viewDrafts() : viewToday();
+    v.innerHTML = S.view === 'develop' ? viewDevelop() : S.view === 'opinions' ? viewOpinions() : S.view === 'ideas' ? viewIdeas() : S.view === 'write' ? viewWrite() : S.view === 'spark' ? viewSpark() : S.view === 'drafts' ? viewDrafts() : viewToday();
     if (S.view === 'today' && !S.onboarded) { v.insertAdjacentHTML('afterbegin', '<div class="card" style="margin:18px 20px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:space-between;"><div><b>Start with your story.</b><p class="empty" style="margin:4px 0 0">Write freely, or take a quick optional tour. Nothing posts automatically.</p></div><div class="row-btns"><button class="btn btn-sm" data-act="tour-dismiss">Start writing</button><button class="btn btn-sm btn-rx" data-act="tour">Take a Tour</button></div></div>'); }
     if (S.view === 'write') bindEditor();
+    if (S.view === 'ideas' && ideasState.status === 'idle' && hasBufferToken()) loadIdeas();
   }
   function applyPrefs() {
     var p = S.prefs, b = document.body;
@@ -1321,6 +1330,7 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
     if (!window.BufferOAuth) await loadScriptOnce('/js/shared/oauth.js');
     if (!window.BufferAPI) await loadScriptOnce('/js/buffer-api.js');
     if (!window.TWWContentItems) await loadScriptOnce('/js/content-items.js');
+    if (!window.TWWIdeas) await loadScriptOnce('/js/buffer-ideas.js');
     if (!window.BufferOAuth || !window.BufferConnection) throw new Error('Buffer sign-in did not load.');
     return window.TWW_BUFFER;
   }
@@ -1561,6 +1571,108 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
   function safeProfile(value) {
     try { var url=new URL(value); return /^https?:$/.test(url.protocol) ? url.href : ''; } catch(e) { return ''; }
   }
+  /* ---------- Buffer Ideas bridge ---------- */
+  // Reads the Buffer Ideas board on request and saves writing back as a new idea.
+  // Idea data is held in memory for this visit. Drafts keep a copy of the idea they started from.
+  var ideasState = { status: 'idle', data: null, error: '', needsReconnect: false, query: '' };
+  var ideaBusy = false;
+  function firstLine(t) { return String(t || '').split('\n')[0].trim(); }
+  function clip(t, n) { t = String(t || '').trim(); return t.length > n ? t.slice(0, n - 1).trim() + '…' : t; }
+  function ideaById(id) { return ideasState.data ? ideasState.data.ideas.filter(function (x) { return x.id === id; })[0] : null; }
+  function ideaGroupName(id) {
+    if (!id || !ideasState.data) return '';
+    var g = (ideasState.data.groups || []).filter(function (x) { return x.id === id; })[0];
+    return g ? g.name : '';
+  }
+  function ideaStatusText(d) {
+    if (d.savedIdea) return d.savedIdea.text === draftText(d) ? 'On your Buffer Ideas board.' : 'Saved as an idea earlier. Saving again adds a new idea.';
+    if (d.fromIdea) return 'Started from a Buffer idea. Buffer can’t edit ideas from other apps, so this adds a new one.';
+    return 'Not ready to post? Park it on your Ideas board.';
+  }
+  function viewIdeas() {
+    var head = '<header><span class="label">From your Buffer board</span><h1 class="display">Buffer Ideas</h1><p>Your half-thoughts are already waiting in Buffer. Pick one and write it out here, in your own words. When it’s ready, send it back.</p></header>';
+    var body;
+    if (!hasBufferToken()) body = '<section class="card"><h2 class="card-h">Connect Buffer to see your Ideas</h2><p class="empty">Take With Words reads your Ideas board when you open this page. Reading never posts anything.</p><button type="button" class="btn btn-rx" data-act="connect" style="align-self:flex-start;">Connect Buffer</button></section>';
+    else if (ideasState.status === 'error') body = '<section class="card"><h2 class="card-h">Couldn’t read your Ideas</h2><p class="empty" role="status" id="ideasError">' + esc(ideasState.error) + '</p><div class="row-btns">' + (ideasState.needsReconnect ? '<button type="button" class="btn btn-rx" data-act="ideas-reconnect">Reconnect Buffer</button>' : '') + '<button type="button" class="btn" data-act="ideas-load">Try again</button></div></section>';
+    else if (!ideasState.data) body = '<p class="empty" role="status" id="ideasLoading">Reading your Ideas board…</p>';
+    else body = ideasToolbar() + '<div id="ideaList">' + ideaListHtml() + '</div>';
+    return '<div class="spark opinions-page ideas-page">' + head + body + '</div>';
+  }
+  function ideasToolbar() {
+    var d = ideasState.data, n = d.ideas.length;
+    return '<div class="row-btns"><span class="empty" id="ideasCount">' + n + ' idea' + (n === 1 ? '' : 's') + (d.orgName ? ' in ' + esc(d.orgName) : '') + ' · read ' + ago(d.at) + '</span><button type="button" class="btn btn-sm" data-act="ideas-load"' + (ideasState.status === 'loading' ? ' disabled' : '') + '>' + (ideasState.status === 'loading' ? 'Refreshing…' : 'Refresh') + '</button></div>' +
+      '<label class="label" for="ideaSearch">Find an idea</label><input class="field" id="ideaSearch" type="search" value="' + esc(ideasState.query) + '" placeholder="Search titles and notes">';
+  }
+  function ideaListHtml() {
+    var d = ideasState.data, q = ideasState.query.trim().toLowerCase();
+    if (!d.ideas.length) return '<section class="card"><h2 class="card-h">Your Ideas board is empty</h2><p class="empty">Jot ideas in Buffer, or start writing here and save it back as a Buffer Idea.</p><button type="button" class="btn btn-sm" data-act="go-today" style="align-self:flex-start;">Start writing</button></section>';
+    var list = d.ideas.filter(function (i) { return !q || (i.title + ' ' + i.text).toLowerCase().indexOf(q) !== -1; });
+    if (!list.length) return '<p class="empty">No ideas match that search.</p>';
+    var started = {};
+    S.drafts.forEach(function (x) { if (x.fromIdea && !started[x.fromIdea.id]) started[x.fromIdea.id] = x.id; });
+    var order = [], byGroup = {};
+    list.forEach(function (i) { var k = i.groupId || ''; if (!byGroup[k]) { byGroup[k] = []; order.push(k); } byGroup[k].push(i); });
+    return order.map(function (k) {
+      var name = ideaGroupName(k) || (k ? 'Ideas' : 'Unsorted');
+      return '<section class="idea-group"><h2 class="label">' + esc(name) + ' · ' + byGroup[k].length + '</h2><ul class="ref-list idea-list">' + byGroup[k].map(function (i) {
+        var head = i.title || firstLine(i.text) || 'Untitled idea';
+        var rest = i.title ? i.text : i.text.split('\n').slice(1).join('\n');
+        var did = started[i.id];
+        return '<li data-idea="' + esc(i.id) + '"><div class="grow"><b>' + esc(clip(head, 140)) + '</b>' + (rest && rest.trim() ? '<p class="empty">' + esc(clip(rest, 240)) + '</p>' : '') + '</div>' +
+          (did ? '<button type="button" class="btn btn-sm" data-open="' + esc(did) + '">Open draft</button>' : '<button type="button" class="btn btn-sm btn-rx" data-act="idea-write" data-id="' + esc(i.id) + '">Write this one</button>') + '</li>';
+      }).join('') + '</ul></section>';
+    }).join('');
+  }
+  async function loadIdeas() {
+    if (ideasState.status === 'loading') return;
+    if (!hasBufferToken()) { openConnect(); return; }
+    var granted = null; try { granted = localStorage.getItem('twu_buffer_token_scope'); } catch (e) {}
+    if (granted && granted.split(/\s+/).indexOf('ideas:read') === -1) {
+      // Signed in before Ideas existed here, so Buffer has to be asked again.
+      ideasState.status = 'error'; ideasState.needsReconnect = true;
+      ideasState.error = 'You connected Buffer before Take With Words could read Ideas. Reconnect once to allow it. Your drafts stay put.';
+      if (S.view === 'ideas') renderView(); return;
+    }
+    ideasState.status = 'loading'; ideasState.error = ''; ideasState.needsReconnect = false;
+    if (S.view === 'ideas') renderView();
+    try {
+      await contentConnection();
+      ideasState.data = await window.TWWIdeas.load();
+      ideasState.status = 'ready';
+    } catch (err) {
+      ideasState.status = 'error'; ideasState.error = (err && err.message) || 'Unknown error.'; ideasState.needsReconnect = !!(err && err.needsReconnect);
+    }
+    if (S.view === 'ideas') renderView();
+  }
+  function writeFromIdea(id) {
+    var i = ideaById(id); if (!i) return;
+    var d = { id: uid(), title: i.title || '', body: '', promptId: null, fromIdea: { id: i.id, title: i.title, text: i.text, group: ideaGroupName(i.groupId) }, created: Date.now(), updated: Date.now(), status: 'draft' };
+    S.drafts.unshift(d); S.activeId = d.id; S.view = 'write'; save(true); renderAll();
+    setTimeout(function () { var b = $('bodyInput'); if (b) b.focus(); }, 30);
+  }
+  async function saveAsIdea(button) {
+    var d = active(); if (!d || ideaBusy) return;
+    var text = draftText(d), status = $('ideaSyncStatus');
+    if (!text) { toast('Write a few words before saving an idea.'); return; }
+    if (d.savedIdea && d.savedIdea.text === text) { if (status) status.textContent = 'Already on your Buffer Ideas board. Change the writing to save a new idea.'; return; }
+    if (!hasBufferToken()) { openConnect(); return; }
+    ideaBusy = true; button.disabled = true;
+    if (status) status.textContent = 'Saving to your Ideas board…';
+    try {
+      await contentConnection();
+      var orgId = (ideasState.data && ideasState.data.orgId) || (await window.TWWIdeas.organization()).id;
+      var ideaText = (d.body || '').trim() || (d.title || '').trim();
+      var r = await window.TWWIdeas.create(orgId, (d.title || '').trim(), ideaText);
+      d.savedIdea = { id: r.id, text: text, at: Date.now() }; save(true);
+      if (ideasState.data) ideasState.data.ideas.unshift({ id: r.id, groupId: null, title: (d.title || '').trim(), text: ideaText, updatedAt: Date.now() });
+      if (status) status.textContent = 'Saved as a new Buffer Idea. Nothing is scheduled.';
+      toast('Saved to your Buffer Ideas.');
+    } catch (err) {
+      var m = (err && err.message) || 'Buffer could not save this idea.';
+      if (status) status.textContent = m; toast(m);
+    } finally { ideaBusy = false; button.disabled = false; }
+  }
+
   function viewOpinions() {
     if (!feat('secondOpinions')) return '<div class="spark"><h1>Second Opinions is turned off</h1><button class="btn" data-act="settings">Open Settings</button></div>';
     return '<div class="spark opinions-page"><header><span class="label">A little perspective</span><h1 class="display">Second Opinions</h1><p>Keep creators whose writing makes you want to write. Notice their approach, then find your own.</p></header><div class="row-btns"><button class="btn btn-rx" data-act="ref-add">Add a creator</button><span class="empty">' + (S.references || []).length + ' saved · private on this device</span></div><label class="label" for="creatorSearch">Find a saved creator</label><input class="field" id="creatorSearch" type="search" value="' + esc(creatorSearch) + '" placeholder="Search names, handles, or notes"><div id="refList">' + refListHtml() + '</div></div>';
@@ -1623,6 +1735,10 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
     else if (a === 'develop-angle') { var ad=active(); if(ad && ad.development) { ad.development.angle=act.dataset.id; save(true); renderView(); } }
     else if (a === 'develop-write') { S.view='write'; save(true); renderAll(); $('bodyInput').focus(); }
     else if (a === 'sync-content') saveWritingToBuffer(act);
+    else if (a === 'save-idea') saveAsIdea(act);
+    else if (a === 'ideas-load') loadIdeas(true);
+    else if (a === 'idea-write') writeFromIdea(act.dataset.id);
+    else if (a === 'ideas-reconnect') startBufferConnect();
     else if (a === 'ref-add') openReferences();
     else if (a === 'ref-edit') openReferences(act.dataset.id);
     else if (a === 'ref-cancel') closeModal();
@@ -1699,6 +1815,7 @@ body.side-collapsed .side-utility svg { flex-shrink:0; }
     S.music = { url: v.trim() }; save(true); renderMusic(); setPlayer(); toast(em.kind + ' playlist added. Press play when you\'re ready.');
   });
   document.addEventListener('input', function (e) {
+    if (e.target.id==='ideaSearch') { ideasState.query=e.target.value; var il=$('ideaList'); if (il) il.innerHTML=ideaListHtml(); return; }
     if (e.target.id==='creatorSearch') { creatorSearch=e.target.value; $('refList').innerHTML=refListHtml(); return; }
     if (e.target.dataset.development) { var gd=active(); if(gd && gd.development) { gd.development[e.target.dataset.development]=e.target.value; gd.updated=Date.now(); save(); } return; }
     var v = e.target.closest && e.target.closest('[data-variant]'); if (!v) return;

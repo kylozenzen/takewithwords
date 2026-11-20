@@ -10,8 +10,12 @@ Writing stays on this device until an explicit Buffer action. **Save writing to 
 
 The adapter in `js/content-items.js` targets Buffer's experimental Content Items API. Existing OAuth configuration and `posts:read` / `posts:write` permissions are required. Remote text changes and attachments block overwriting a linked draft. This is a read-before-write check, not a server-side compare-and-swap guarantee. A failed initial creation with an ambiguous network response should be checked in Buffer before retrying.
 
+## Buffer Ideas
+
+The **Buffer Ideas** page reads your Buffer Ideas board when you open it and groups ideas by column. **Write this one** starts a draft from an idea, with the idea shown above the editor. **Save as Buffer Idea** saves writing back to the board as a new idea, since Buffer's API can't edit existing ideas. Sign-in asks for `ideas:read` and `ideas:write`; earlier sign-ins get a one-time reconnect prompt. See `docs/ROADMAP.md` for where this is headed.
+
 ## Local checks
 
-Serve the repository root with `python3 -m http.server 8765`. Install Playwright as a development dependency and its Chromium browser, then run `node tests/writing-flow.cjs` and `node tests/content-handoff.cjs`. Set `CHROMIUM_PATH` if using an existing browser binary. These checks use mocked Buffer responses and never create real posts. Both `/app.html` and `/app/` serve identical app source.
+Serve the repository root with `python3 -m http.server 8765`. Install Playwright as a development dependency and its Chromium browser, then run `node tests/writing-flow.cjs` and `node tests/content-handoff.cjs`. For the Ideas bridge, install `jsdom` as a development dependency and run `node tests/ideas-bridge.cjs`. Set `CHROMIUM_PATH` if using an existing browser binary. These checks use mocked Buffer responses and never create real posts. Both `/app.html` and `/app/` serve identical app source.
 
 Before release, verify OAuth and a real channel-less draft/save-to-channel-drafts round trip on a test Buffer account. Do not infer live API success from the mocked checks.
